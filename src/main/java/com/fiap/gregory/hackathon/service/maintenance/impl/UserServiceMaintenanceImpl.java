@@ -1,6 +1,6 @@
 package com.fiap.gregory.hackathon.service.maintenance.impl;
 
-import com.fiap.gregory.hackathon.domain.usecase.maintenance.IUserMaintenanceUseCase;
+import com.fiap.gregory.hackathon.domain.usecase.maintenance.IUserUseCaseMaintenance;
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.service.maintenance.IUserServiceMaintenance;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserServiceMaintenanceImpl implements IUserServiceMaintenance {
 
-    IUserMaintenanceUseCase userMaintenanceUseCase;
+    IUserUseCaseMaintenance userMaintenanceUseCase;
 
     @Override
     public void createUser(UserRequest request) {

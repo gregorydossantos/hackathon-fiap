@@ -1,7 +1,7 @@
 package com.fiap.gregory.hackathon.domain.usecase.maintenance.impl;
 
 import com.fiap.gregory.hackathon.domain.mapper.IUserMapper;
-import com.fiap.gregory.hackathon.domain.usecase.maintenance.IUserMaintenanceUseCase;
+import com.fiap.gregory.hackathon.domain.usecase.maintenance.IUserUseCaseMaintenance;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
@@ -18,7 +18,7 @@ import static com.fiap.gregory.hackathon.domain.message.UserMessage.USER_NOT_FOU
 @Service
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class UserMaintenanceUseCaseImpl implements IUserMaintenanceUseCase {
+public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
 
     IUserRepository userRepository;
     IUserMapper mapper;

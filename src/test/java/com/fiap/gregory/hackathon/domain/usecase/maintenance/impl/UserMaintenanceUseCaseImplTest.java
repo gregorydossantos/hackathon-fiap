@@ -36,7 +36,7 @@ class UserMaintenanceUseCaseImplTest {
     IUserMapper mapper;
 
     @InjectMocks
-    UserMaintenanceUseCaseImpl userMaintenanceUseCase;
+    UserUseCaseMaintenanceImpl userMaintenanceUseCase;
 
     UserRequest request;
     UserResponse response;

@@ -1,7 +1,7 @@
 package com.fiap.gregory.hackathon.rest.query.impl;
 
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
-import com.fiap.gregory.hackathon.rest.query.IUserQueryController;
+import com.fiap.gregory.hackathon.rest.query.IUserControllerQuery;
 import com.fiap.gregory.hackathon.service.query.IUserServiceQuery;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static com.fiap.gregory.hackathon.domain.message.UserMessage.PATH_USERS;
+import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
 
 @RestController
 @AllArgsConstructor
 @Tag(name = "User Controller")
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequestMapping(value = PATH_USERS, produces = {"application/json"})
-public class UserQueryControllerImpl implements IUserQueryController {
+public class UserControllerQueryImpl implements IUserControllerQuery {
 
     IUserServiceQuery userService;
 

@@ -1,6 +1,6 @@
 package com.fiap.gregory.hackathon.service.query.impl;
 
-import com.fiap.gregory.hackathon.domain.usecase.query.IUserQueryUseCase;
+import com.fiap.gregory.hackathon.domain.usecase.query.IUserUseCaseQuery;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 class UserServiceQueryImplTest {
 
     @Mock
-    IUserQueryUseCase userQueryUseCase;
+    IUserUseCaseQuery userQueryUseCase;
 
     @InjectMocks
     UserServiceQueryImpl userServiceQuery;

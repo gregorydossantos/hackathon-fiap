@@ -3,7 +3,7 @@ package com.fiap.gregory.hackathon.domain.usecase.maintenance;
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 
-public interface IUserMaintenanceUseCase {
+public interface IUserUseCaseMaintenance {
 
     void createUser(UserRequest request);
 
