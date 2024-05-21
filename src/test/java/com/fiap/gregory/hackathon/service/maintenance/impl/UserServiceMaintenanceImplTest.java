@@ -1,6 +1,6 @@
 package com.fiap.gregory.hackathon.service.maintenance.impl;
 
-import com.fiap.gregory.hackathon.domain.usecase.maintenance.IUserMaintenanceUseCase;
+import com.fiap.gregory.hackathon.domain.usecase.maintenance.IUserUseCaseMaintenance;
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 class UserServiceMaintenanceImplTest {
 
     @Mock
-    IUserMaintenanceUseCase userMaintenanceUseCase;
+    IUserUseCaseMaintenance userMaintenanceUseCase;
 
     @InjectMocks
     UserServiceMaintenanceImpl userServiceMaintenance;

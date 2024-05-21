@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
+import static com.fiap.gregory.hackathon.domain.message.CommonsMessage.BAD_REQUEST;
 import static com.fiap.gregory.hackathon.domain.message.UserMessage.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

@@ -2,13 +2,12 @@ package com.fiap.gregory.hackathon.rest.maintenance.impl;
 
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
-import com.fiap.gregory.hackathon.rest.maintenance.IUserMaintenanceController;
+import com.fiap.gregory.hackathon.rest.maintenance.IUserControllerMaintenance;
 import com.fiap.gregory.hackathon.service.maintenance.IUserServiceMaintenance;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,14 +16,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.fiap.gregory.hackathon.domain.message.UserMessage.PATH_USERS;
+import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
 
 @RestController
 @AllArgsConstructor
 @Tag(name = "User Controller")
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequestMapping(value = PATH_USERS, produces = {"application/json"})
-public class UserMaintenanceControllerImpl implements IUserMaintenanceController {
+public class UserControllerMaintenanceImpl implements IUserControllerMaintenance {
 
     IUserServiceMaintenance userServiceMaintenance;
 

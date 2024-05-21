@@ -1,6 +1,6 @@
 package com.fiap.gregory.hackathon.service.query.impl;
 
-import com.fiap.gregory.hackathon.domain.usecase.query.IUserQueryUseCase;
+import com.fiap.gregory.hackathon.domain.usecase.query.IUserUseCaseQuery;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.service.query.IUserServiceQuery;
 import lombok.AccessLevel;
@@ -15,7 +15,7 @@ import java.util.List;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserServiceQueryImpl implements IUserServiceQuery {
 
-    IUserQueryUseCase userQueryUseCase;
+    IUserUseCaseQuery userQueryUseCase;
 
     @Override
     public List<UserResponse> getUsers() {

@@ -1,7 +1,7 @@
 package com.fiap.gregory.hackathon.service.query.impl;
 
-import com.fiap.gregory.hackathon.domain.usecase.query.IUserUseCaseQuery;
-import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
+import com.fiap.gregory.hackathon.domain.usecase.query.IGameUseCaseQuery;
+import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,20 +17,20 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class UserServiceQueryImplTest {
+class GameServiceQueryImplTest {
 
     @Mock
-    IUserUseCaseQuery userQueryUseCase;
+    IGameUseCaseQuery useCaseQuery;
 
     @InjectMocks
-    UserServiceQueryImpl userServiceQuery;
+    GameServiceQueryImpl serviceQuery;
 
     @Test
-    @DisplayName("SERVICE LAYER ::: Get a list of users successfully")
-    void should_ReturnsAListOfUsers_When_CallGetUsers() {
-        when(userQueryUseCase.getUsers()).thenReturn(List.of(Mockito.mock(UserResponse.class)));
+    @DisplayName("SERVICE LAYER ::: Get a list of games")
+    void getGames() {
+        when(useCaseQuery.getGames()).thenReturn(List.of(Mockito.mock(GameResponse.class)));
 
-        var response = userServiceQuery.getUsers();
+        var response = serviceQuery.getGames();
         assertNotNull(response);
     }
 

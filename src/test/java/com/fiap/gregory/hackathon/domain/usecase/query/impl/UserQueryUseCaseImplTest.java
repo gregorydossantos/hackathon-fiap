@@ -32,7 +32,7 @@ class UserQueryUseCaseImplTest {
     IUserMapper mapper;
 
     @InjectMocks
-    UserQueryUseCaseImpl useCase;
+    UserUseCaseQueryImpl useCase;
 
     @Test
     @DisplayName("USE CASE LAYER ::: Get a list of users successfully")

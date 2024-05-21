@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-public interface IUserMaintenanceController {
+public interface IUserControllerMaintenance {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     ResponseEntity<Void> createUser(@Valid @RequestBody UserRequest request);

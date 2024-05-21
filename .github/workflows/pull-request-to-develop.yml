@@ -1,18 +1,19 @@
-name: "1 - [FEAT] Create automatic PR to develop branch"
+name: "1 - [FEAT-HOTFIX] Create automatic PR to develop branch"
 
 on:
   push:
     branches:
       - 'feature**'
+      - 'hotfix**'
 
 jobs:
   open-pr-to-develop:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Create PR
-        uses: poorva17/create-pr-action@develop
+        uses: peter-evans/create-pull-request@v6
         with:
           target-branch: 'develop'
           token: ${{ secrets.GITHUB_TOKEN }}
