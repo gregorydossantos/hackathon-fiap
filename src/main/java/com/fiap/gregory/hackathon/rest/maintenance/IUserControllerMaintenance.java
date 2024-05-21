@@ -13,7 +13,7 @@ public interface IUserControllerMaintenance {
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     ResponseEntity<Void> createUser(@Valid @RequestBody UserRequest request);
 
-    @PutMapping(path = "/{id}", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/{id}", consumes = APPLICATION_JSON_VALUE)
     ResponseEntity<UserResponse> updateUser(@PathVariable("id") Long id, @RequestBody @Valid UserRequest request);
 
     @DeleteMapping(path = "/{id}", consumes = APPLICATION_JSON_VALUE)

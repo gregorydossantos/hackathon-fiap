@@ -40,7 +40,7 @@ public class UserControllerMaintenanceImpl implements IUserControllerMaintenance
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @Operation(summary = "Update a user", method = "PUT")
+    @Operation(summary = "Update a user", method = "POST")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Return a user update"),
             @ApiResponse(responseCode = "400", description = "Bad request"),
