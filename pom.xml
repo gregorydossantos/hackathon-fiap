@@ -26,6 +26,7 @@
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 		<spring-jms.version>6.1.7</spring-jms.version>
 		<spring-artemis.version>3.2.5</spring-artemis.version>
+		<artemis-jms-server.version>2.33.0</artemis-jms-server.version>
 	</properties>
 
 	<dependencies>
@@ -96,6 +97,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-artemis</artifactId>
 			<version>${spring-artemis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>artemis-jms-server</artifactId>
+			<version>${artemis-jms-server.version}</version>
 		</dependency>
 	</dependencies>
 

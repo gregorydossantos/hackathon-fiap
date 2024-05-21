@@ -8,8 +8,8 @@ import org.springframework.jms.annotation.EnableJms;
 
 @EnableJms
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "User Module", version = "1.0",
-        description = "This is an API that will allow you to manage users"))
+@OpenAPIDefinition(info = @Info(title = "Trade Games", version = "1.0",
+        description = "This is an API that will allow you to manage users and trade games!"))
 public class HackathonApplication {
 
     public static void main(String[] args) {

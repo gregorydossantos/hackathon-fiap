@@ -23,6 +23,7 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.GET, PATH_USERS).permitAll()
                         .requestMatchers(HttpMethod.GET, PATH_GAMES).permitAll()
                         .requestMatchers(HttpMethod.POST, PATH_USERS).permitAll()
