@@ -16,7 +16,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 
-import static com.fiap.gregory.hackathon.domain.message.UserMessage.PATH_USERS;
+import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
 import static io.restassured.RestAssured.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;

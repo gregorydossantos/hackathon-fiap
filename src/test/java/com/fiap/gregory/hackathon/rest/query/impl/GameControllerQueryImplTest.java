@@ -1,7 +1,7 @@
 package com.fiap.gregory.hackathon.rest.query.impl;
 
-import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
-import com.fiap.gregory.hackathon.service.query.IUserServiceQuery;
+import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
+import com.fiap.gregory.hackathon.service.query.IGameServiceQuery;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,37 +17,37 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
-import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
+import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_GAMES;
 import static io.restassured.RestAssured.given;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class UserQueryControllerImplTest {
+class GameControllerQueryImplTest {
 
     @LocalServerPort
     int port;
 
     @MockBean
-    IUserServiceQuery userServiceQuery;
+    IGameServiceQuery serviceQuery;
 
-    UserResponse userResponse;
+    GameResponse response;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        userResponse = Mockito.mock(UserResponse.class);
+        response = Mockito.mock(GameResponse.class);
         RestAssured.port = port;
     }
 
     @Test
     @DisplayName("Should be return a HTTP status 200 - SUCCESS")
-    void should_ReturnsSuccess_When_GetUsers() {
-        when(userServiceQuery.getUsers()).thenReturn(List.of(userResponse));
+    void getGames() {
+        when(serviceQuery.getGames()).thenReturn(List.of(response));
 
         given()
                 .contentType(ContentType.JSON)
-                .when().get(PATH_USERS)
+                .when().get(PATH_GAMES)
                 .then().statusCode(HttpStatus.OK.value());
     }
 

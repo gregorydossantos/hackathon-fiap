@@ -8,8 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_GAMES;
-import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
+import static com.fiap.gregory.hackathon.rest.path.Routes.*;
 
 @Configuration
 @EnableWebSecurity
@@ -23,9 +22,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, PATH_USERS).permitAll()
                         .requestMatchers(HttpMethod.POST, PATH_USERS).permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/v1/users/{id}").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/v1/users/{id}").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/v1/users/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/v1/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, PATH_GAMES).permitAll()
+                        .requestMatchers(HttpMethod.POST, PATH_EXCHANGES).permitAll()
                         .anyRequest().authenticated())
                 .build();
     }
