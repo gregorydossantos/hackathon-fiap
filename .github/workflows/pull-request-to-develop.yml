@@ -1,4 +1,4 @@
-name: "1 - [FEAT-HOTFIX] Create automatic PR to develop branch"
+name: "1 - Create automatic PR to develop branch"
 
 on:
   push:
@@ -16,4 +16,4 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           target-branch: 'develop'
-          token: ${{ secrets.GITHUB_TOKEN }}
+          secrets: inherit
