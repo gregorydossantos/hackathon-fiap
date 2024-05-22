@@ -3,8 +3,8 @@ name: "1 - Create automatic PR to develop branch"
 on:
   push:
     branches:
-      - 'feature**'
-      - 'hotfix**'
+      - feature**
+      - hotfix**
 
 jobs:
   open-pr-to-develop:
@@ -15,5 +15,5 @@ jobs:
       - name: Create PR
         uses: peter-evans/create-pull-request@v6
         with:
-          target-branch: 'develop'
+          branch: develop
           secrets: inherit
