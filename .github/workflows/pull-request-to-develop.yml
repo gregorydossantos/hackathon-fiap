@@ -16,4 +16,4 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           branch: develop
-          token: ${{ secrets.GITHUB_TOKEN }}
+          secrets: inherit
