@@ -15,5 +15,5 @@ jobs:
       - name: Create PR
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.toPush } }
+          token: ${{ secrets.toPush }}
           branch: develop
