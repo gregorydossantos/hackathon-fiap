@@ -8,7 +8,14 @@ main libraries used on the market today.
 
 ## Technologies and Libraries:
 - Java 17
-- Spring-boot 3.2.2
+- Maven 3.8.1
+- Rest-assured 5.4.0
+- JMS 6.1.7
+- Artemis 3.2.5
+- Artemis JMS Server 2.33.0
+- Jacoco Report 0.8.8
+- Mapstruct 1.5.5.Final
+- OpenAPI 2.0.4
 - Spring Security
 - Database H2
 - Postgres
@@ -16,9 +23,6 @@ main libraries used on the market today.
 - Lombok
 - JUnit
 - Mockito
-- Jacoco Report 0.8.8
-- Mapstruct 1.5.5.Final
-- OpenAPI 2.0.4
 
 ### API Documentation
 #### Architecture Draw
@@ -37,6 +41,13 @@ follow these steps:
 <br/> - sudo docker-compose up -d (to start container with database)
 <br/> - sudo docker-compose down -d (to stop container)
 <br/> I also included a directory containing the endpoint call collections in the postman-collections folder
+
+#### Jacoco Report:
+To run and generate a report about coverage tests, run mvn test and after complete you can look at in: /target/site
+/jacoco/index.html.
+<br/> Jacoco Report Example:
+![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/jacoco-report.png)
+
 
 ### Documentation (Swagger - Endpoints):
 After running the project, we can access the API documentation through Swagger: <br/>

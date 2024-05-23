@@ -78,7 +78,7 @@ class UserMaintenanceControllerImplTest {
 
         given()
                 .contentType(ContentType.JSON)
-                .when().post(PATH_USERS_ID)
+                .when().delete(PATH_USERS_ID)
                 .then().statusCode(HttpStatus.OK.value());
 
         verify(serviceMaintenance).deleteUser(anyLong());

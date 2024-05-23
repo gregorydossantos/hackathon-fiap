@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -44,26 +43,46 @@ class UserMaintenanceUseCaseImplTest {
 
     @BeforeEach
     void setUp() {
-        request = Mockito.mock(UserRequest.class);
-        response = Mockito.mock(UserResponse.class);
-        user = Mockito.mock(Users.class);
+        request = UserRequest.builder()
+                .name("Test")
+                .email("test@test.com")
+                .password(11111111)
+                .exchange("Mail")
+                .build();
+
+        response = UserResponse.builder()
+                .id(1L)
+                .name("Test")
+                .email("test@test.com")
+                .password(11111111)
+                .exchange("Mail")
+                .build();
+
+        user = Users.builder()
+                .id(1L)
+                .name("Test")
+                .email("test@test.com")
+                .password(11111111)
+                .exchange("Mail")
+                .build();
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: Create a user")
     void shouldCreateAUser_When_CallCreateUser() {
-        when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
-        when(mapper.toListResponse(anyList())).thenReturn(List.of(response));
+        when(userRepository.findByEmail(request.getEmail())).thenReturn(Optional.empty());
+        when(mapper.toEntity(request)).thenReturn(user);
 
         userMaintenanceUseCase.createUser(request);
-        verify(userRepository).save(user);
+        verify(userRepository).save(any(Users.class));
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: Update a user")
     void updateUser() {
-        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(user));
-        when(mapper.toUpdate(user, request)).thenReturn(user);
+        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user));
+        when(mapper.toUpdate(any(), any())).thenReturn(user);
+        when(mapper.toResponse(any())).thenReturn(response);
 
         var response = userMaintenanceUseCase.updateUser(1L, request);
         assertNotNull(response);
@@ -72,10 +91,10 @@ class UserMaintenanceUseCaseImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: Delete a user")
     void deleteUser() {
-        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(user));
+        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user));
 
         userMaintenanceUseCase.deleteUser(1L);
-        verify(userRepository).delete(Mockito.mock(Users.class));
+        verify(userRepository).delete(any(Users.class));
     }
 
     @Test

@@ -39,7 +39,7 @@ class UserServiceMaintenanceImplTest {
     void should_ReturnsAUser_When_CallUpdateUser() {
         var request = Mockito.mock(UserRequest.class);
         var response = Mockito.mock(UserResponse.class);
-        when(userMaintenanceUseCase.updateUser(1L, any())).thenReturn(response);
+        when(userMaintenanceUseCase.updateUser(1L, request)).thenReturn(response);
 
         var data = userServiceMaintenance.updateUser(1L, request);
         assertNotNull(data);

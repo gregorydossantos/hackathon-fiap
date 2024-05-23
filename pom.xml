@@ -151,21 +151,27 @@
 				<configuration>
 					<excludes>
 						<exclude>**/HackathonApplication.class</exclude>
-						<exclude>**/config/WebSecurityConfig.class</exclude>
-						<exclude>**/domain/message/UserMessage.class</exclude>
-						<exclude>**/infra/db/**</exclude>
-						<exclude>**/rest/dto/**</exclude>
+						<exclude>**/config/**</exclude>
+						<exclude>**/domain/message/**</exclude>
+						<exclude>**/infra/db/model/**</exclude>
+						<exclude>**/infra/db/repository/**</exclude>
+						<exclude>**/rest/dto/request/**</exclude>
+						<exclude>**/rest/dto/response/**</exclude>
+						<exclude>**/rest/exceptionhandler/exception/**</exclude>
+						<exclude>**/rest/exceptionhandler/ErrorResponse.class</exclude>
+						<exclude>**/rest/path/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>
 					<execution>
+						<id>prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
 					<execution>
 						<id>report</id>
-						<phase>prepare-package</phase>
+						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
