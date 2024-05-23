@@ -1,12 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${URL_DATABASE}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-#    url: "jdbc:postgresql://localhost:5433/hackathon_db"
-#    username: "postgres"
-#    password: "12345"
+    url: ${URL_DATABASE:jdbc:postgresql://localhost:5433/hackathon_db}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:12345}
   jpa:
     hibernate:
       ddl-auto: update
