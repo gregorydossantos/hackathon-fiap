@@ -7,152 +7,20 @@
 	},
 	"item": [
 		{
-			"name": "Users",
+			"name": "PROD",
 			"item": [
 				{
-					"name": "Query",
-					"item": [
-						{
-							"name": "getUsers",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true,
-								"disabledSystemHeaders": {}
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url-test}}/api/v1/users",
-									"host": [
-										"{{url-test}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Maintenance",
-					"item": [
-						{
-							"name": "createUser",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"Pedro\",\n    \"email\": \"pedro@test.com\",\n    \"password\": \"44444444\",\n    \"exchange\": \"Mail\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url-test}}/api/v1/users",
-									"host": [
-										"{{url-test}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "updateUser",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"Pagano\",\n    \"email\": \"teste-update@teste.com.br\",\n    \"password\": \"99999999\",\n    \"exchange\": \"In person\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url-test}}/api/v1/users/2",
-									"host": [
-										"{{url-test}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"2"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "deleteUser",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{url-test}}/api/v1/users/3",
-									"host": [
-										"{{url-test}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"3"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Exchanges",
-			"item": [
-				{
-					"name": "Games",
+					"name": "Users",
 					"item": [
 						{
 							"name": "Query",
 							"item": [
 								{
-									"name": "getGames",
+									"name": "getUsers",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true,
+										"disabledSystemHeaders": {}
+									},
 									"request": {
 										"method": "GET",
 										"header": [
@@ -162,15 +30,27 @@
 												"type": "text"
 											}
 										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
 										"url": {
-											"raw": "{{url-test}}/api/v1/games",
+											"raw": "https://hackathon-fiap-api.onrender.com/api/v1/users",
+											"protocol": "https",
 											"host": [
-												"{{url-test}}"
+												"hackathon-fiap-api",
+												"onrender",
+												"com"
 											],
 											"path": [
 												"api",
 												"v1",
-												"games"
+												"users"
 											]
 										}
 									},
@@ -182,13 +62,13 @@
 							"name": "Maintenance",
 							"item": [
 								{
-									"name": "sendMessage",
+									"name": "createUser",
 									"request": {
 										"method": "POST",
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"user_id\": 1,\n    \"game_id\": 1\n}",
+											"raw": "{\n    \"name\": \"Pedro\",\n    \"email\": \"pedro@test.com\",\n    \"password\": \"44444444\",\n    \"exchange\": \"Mail\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -196,18 +76,375 @@
 											}
 										},
 										"url": {
-											"raw": "{{url-test}}/api/v1/exchanges",
+											"raw": "https://hackathon-fiap-api.onrender.com/api/v1/users",
+											"protocol": "https",
+											"host": [
+												"hackathon-fiap-api",
+												"onrender",
+												"com"
+											],
+											"path": [
+												"api",
+												"v1",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "updateUser",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Pagano\",\n    \"email\": \"teste-update@teste.com.br\",\n    \"password\": \"99999999\",\n    \"exchange\": \"In person\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://hackathon-fiap-api.onrender.com/api/v1/users/2",
+											"protocol": "https",
+											"host": [
+												"hackathon-fiap-api",
+												"onrender",
+												"com"
+											],
+											"path": [
+												"api",
+												"v1",
+												"users",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "deleteUser",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://hackathon-fiap-api.onrender.com/api/v1/users/3",
+											"protocol": "https",
+											"host": [
+												"hackathon-fiap-api",
+												"onrender",
+												"com"
+											],
+											"path": [
+												"api",
+												"v1",
+												"users",
+												"3"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Exchanges",
+					"item": [
+						{
+							"name": "Games",
+							"item": [
+								{
+									"name": "Query",
+									"item": [
+										{
+											"name": "getGames",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "https://hackathon-fiap-api.onrender.com/api/v1/games",
+													"protocol": "https",
+													"host": [
+														"hackathon-fiap-api",
+														"onrender",
+														"com"
+													],
+													"path": [
+														"api",
+														"v1",
+														"games"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Maintenance",
+									"item": [
+										{
+											"name": "sendMessage",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"user_id\": 1,\n    \"game_id\": 1\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "https://hackathon-fiap-api.onrender.com/api/v1/exchanges",
+													"protocol": "https",
+													"host": [
+														"hackathon-fiap-api",
+														"onrender",
+														"com"
+													],
+													"path": [
+														"api",
+														"v1",
+														"exchanges"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "DEV",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Query",
+							"item": [
+								{
+									"name": "getUsers",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true,
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url-test}}/api/v1/users",
 											"host": [
 												"{{url-test}}"
 											],
 											"path": [
 												"api",
 												"v1",
-												"exchanges"
+												"users"
 											]
 										}
 									},
 									"response": []
+								}
+							]
+						},
+						{
+							"name": "Maintenance",
+							"item": [
+								{
+									"name": "createUser",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Pedro\",\n    \"email\": \"pedro@test.com\",\n    \"password\": \"44444444\",\n    \"exchange\": \"Mail\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url-test}}/api/v1/users",
+											"host": [
+												"{{url-test}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "updateUser",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Pagano\",\n    \"email\": \"teste-update@teste.com.br\",\n    \"password\": \"99999999\",\n    \"exchange\": \"In person\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url-test}}/api/v1/users/2",
+											"host": [
+												"{{url-test}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"users",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "deleteUser",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{url-test}}/api/v1/users/3",
+											"host": [
+												"{{url-test}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"users",
+												"3"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Exchanges",
+					"item": [
+						{
+							"name": "Games",
+							"item": [
+								{
+									"name": "Query",
+									"item": [
+										{
+											"name": "getGames",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{url-test}}/api/v1/games",
+													"host": [
+														"{{url-test}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"games"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Maintenance",
+									"item": [
+										{
+											"name": "sendMessage",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"user_id\": 1,\n    \"game_id\": 1\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{url-test}}/api/v1/exchanges",
+													"host": [
+														"{{url-test}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"exchanges"
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						}
