@@ -31,9 +31,18 @@ main libraries used on the market today.
 #### Database Model
 ![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/db-model.png)
 <br />
-#### Use Cases
-In progress...
-<br />
+#### Sequences Diagram
+##### Users Endpoints
+![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/users-sequence.png)
+![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/users-sequence-1.png)
+![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/users-sequence-2.png)
+
+##### Game Endpoint
+![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/games-sequence.png)
+
+##### Exchange Endpoint
+![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/exchanges-sequence.png)
+
 #### Notes:
 To create the database and upload it locally, first confirm that you have docker installed on your machine, after that
 follow these steps:
