@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${URL_DATABASE}
-    username: ${URL_USERNAME}
-    password: ${URL_PASSWORD}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
 #    url: "jdbc:postgresql://localhost:5433/hackathon_db"
 #    username: "postgres"
 #    password: "12345"
