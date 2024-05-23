@@ -9,4 +9,4 @@ FROM openjdk:17-jdk-slim
 EXPOSE 8000
 COPY --from=build /build/libs/hackathon-1.jar app.jar
 
-ENTRYPOINT["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
