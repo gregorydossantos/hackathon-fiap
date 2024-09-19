@@ -9,6 +9,6 @@ RUN mvn clean install
 
 FROM openjdk:17-jdk-slim
 EXPOSE 8000
-COPY --from=build /target/hackathon-1.jar app.jar
+COPY --from=build /target/hackathon-1.jar hackathon.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "hackathon.jar"]
