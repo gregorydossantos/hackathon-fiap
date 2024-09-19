@@ -61,3 +61,6 @@ To run and generate a report about coverage tests, run mvn test and after comple
 ### Documentation (Swagger - Endpoints):
 After running the project, we can access the API documentation through Swagger: <br/>
 Link: http://localhost:8080/swagger-ui/index.html#/
+
+### Deploy da API:
+URL Render: https://hackathon-fiap-api.onrender.com
