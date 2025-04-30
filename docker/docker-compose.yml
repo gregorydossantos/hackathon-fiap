@@ -3,10 +3,8 @@ version: '3'
 services:
   local-postgres-compose:
     image: postgres
-    environment:
-      POSTGRES_DB: "hackathon_db"
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "12345"
+    env_file:
+      - variables.env
     ports:
       - "5433:5432"
     volumes:
