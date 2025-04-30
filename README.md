@@ -47,8 +47,8 @@ main libraries used on the market today.
 To create the database and upload it locally, first confirm that you have docker installed on your machine, after that
 follow these steps:
 <br/> - cd hackathon/docker
-<br/> - sudo docker-compose up -d (to start container with database)
-<br/> - sudo docker-compose down -d (to stop container)
+<br/> - sudo docker compose up -d (to start container with database)
+<br/> - sudo docker compose down -d (to stop container)
 <br/> I also included a directory containing the endpoint call collections in the postman-collections folder
 
 #### Jacoco Report:
