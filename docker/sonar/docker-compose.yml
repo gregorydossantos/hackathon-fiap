@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  sonarqube:
+    image: sonarqube:lts-community
+    ports:
+      - "9000:9000"
+    env_file:
+      - variables-sonarqube.env
+    networks:
+      - sonar-network
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+
+  sonar_db:
+    image: postgres:latest
+    env_file:
+      - variables-sonarqube-db.env
+    ports:
+      - "5434:5432"
+    networks:
+      - sonar-network
+    volumes:
+      - postgres:/var/lib/postgresql
+
+networks:
+  sonar-network:
+    driver: bridge
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  postgres:

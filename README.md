@@ -1,6 +1,6 @@
 # Exchange Games API
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/gregorydossantos/projeto-sds3/blob/main/LICENSE)
-<br/>This is a project from my pos graduate studies in architecture and software development at FIAP.
+<br/>This is a project from my postgraduate studies in architecture and software development at FIAP.
 
 ## About project
 This project consists of creating a monolith with one module. Will be built on the Rest API standard and also the
@@ -23,6 +23,7 @@ main libraries used on the market today.
 - Lombok
 - JUnit
 - Mockito
+- SonarQube
 
 ### API Documentation
 #### Architecture Draw
@@ -57,6 +58,13 @@ To run and generate a report about coverage tests, run mvn test and after comple
 <br/> Jacoco Report Example:
 ![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/jacoco-report.png)
 
+### SonarQube:
+To build and uses report from Jacoco for generate quality and coverage tests of the API, run this commands:
+<br/> To up SonarQube container at local, navigate to the folder docker/sonar
+<br/> - sudo docker compose up -d
+<br/> Generate for SonarQube the report from Jacoco
+<br/> - mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_b18595f91cc1c0850336a3334cdeecc334dde816
+![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/sonar-qube.png)
 
 ### Documentation (Swagger - Endpoints):
 After running the project, we can access the API documentation through Swagger: <br/>

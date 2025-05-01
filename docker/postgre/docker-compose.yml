@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    env_file:
+      - variables-postgres-api.env
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres:/var/lib/postgresql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#      - ./postgres-data:/var/lib/postgres/data
+    networks:
+      - postgres-network
+
+networks:
+  postgres-network:
+    driver: bridge
+
+volumes:
+  postgres:
