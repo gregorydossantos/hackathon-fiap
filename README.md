@@ -57,6 +57,13 @@ To run and generate a report about coverage tests, run mvn test and after comple
 <br/> Jacoco Report Example:
 ![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/jacoco-report.png)
 
+### SonarQube:
+To build and uses report from Jacoco for generate quality and coverage tests of the API, run this commands:
+To up the SonarQube container at local, navigate to the folder docker/sonar
+- sudo docker compose up -d
+Generate for SonarQube the report from Jacoco
+- mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_b18595f91cc1c0850336a3334cdeecc334dde816
+  ![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/sonar-qube.png)
 
 ### Documentation (Swagger - Endpoints):
 After running the project, we can access the API documentation through Swagger: <br/>
