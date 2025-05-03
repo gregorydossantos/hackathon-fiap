@@ -5,6 +5,7 @@ import com.fiap.gregory.hackathon.infra.db.model.Users;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserNotFoundException;
+import com.fiap.gregory.hackathon.service.encryption.IEncryptionService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,6 +28,10 @@ class UserQueryUseCaseImplTest {
 
     @Mock
     IUserRepository userRepository;
+
+    @Mock
+    IEncryptionService encryptionService;
+
 
     @Mock
     IUserMapper mapper;

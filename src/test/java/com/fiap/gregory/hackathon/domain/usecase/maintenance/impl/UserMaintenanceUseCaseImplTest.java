@@ -7,20 +7,22 @@ import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserDataIntegrityException;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserNotFoundException;
+import com.fiap.gregory.hackathon.service.encryption.IEncryptionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -34,35 +36,38 @@ class UserMaintenanceUseCaseImplTest {
     @Mock
     IUserMapper mapper;
 
+    @Mock
+    IEncryptionService encryptionService;
+
     @InjectMocks
     UserUseCaseMaintenanceImpl userMaintenanceUseCase;
 
-    UserRequest request;
-    UserResponse response;
-    Users user;
+    UserRequest requestMock;
+    UserResponse responseMock;
+    Users userMock;
 
     @BeforeEach
     void setUp() {
-        request = UserRequest.builder()
+        requestMock = UserRequest.builder()
                 .name("Test")
                 .email("test@test.com")
-                .password(11111111)
+                .password("11111111")
                 .exchange("Mail")
                 .build();
 
-        response = UserResponse.builder()
+        responseMock = UserResponse.builder()
                 .id(1L)
                 .name("Test")
                 .email("test@test.com")
-                .password(11111111)
+                .password("11111111")
                 .exchange("Mail")
                 .build();
 
-        user = Users.builder()
+        userMock = Users.builder()
                 .id(1L)
                 .name("Test")
                 .email("test@test.com")
-                .password(11111111)
+                .password("11111111")
                 .exchange("Mail")
                 .build();
     }
@@ -70,28 +75,28 @@ class UserMaintenanceUseCaseImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: Create a user")
     void shouldCreateAUser_When_CallCreateUser() {
-        when(userRepository.findByEmail(request.getEmail())).thenReturn(Optional.empty());
-        when(mapper.toEntity(request)).thenReturn(user);
+        when(userRepository.findByEmail(requestMock.getEmail())).thenReturn(Optional.empty());
+        when(mapper.toEntity(requestMock)).thenReturn(userMock);
 
-        userMaintenanceUseCase.createUser(request);
+        userMaintenanceUseCase.createUser(requestMock);
         verify(userRepository).save(any(Users.class));
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: Update a user")
     void updateUser() {
-        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user));
-        when(mapper.toUpdate(any(), any())).thenReturn(user);
-        when(mapper.toResponse(any())).thenReturn(response);
+        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(userMock));
+        when(mapper.toUpdate(any(), any())).thenReturn(userMock);
+        when(mapper.toResponse(any())).thenReturn(responseMock);
 
-        var response = userMaintenanceUseCase.updateUser(1L, request);
+        var response = userMaintenanceUseCase.updateUser(1L, requestMock);
         assertNotNull(response);
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: Delete a user")
     void deleteUser() {
-        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user));
+        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(userMock));
 
         userMaintenanceUseCase.deleteUser(1L);
         verify(userRepository).delete(any(Users.class));
@@ -100,15 +105,15 @@ class UserMaintenanceUseCaseImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: UserDataIntegrityException")
     void throwUserDataIntegrityException_When_CreateAUser() {
-        when(userRepository.findByEmail(anyString())).thenReturn(Optional.ofNullable(user));
-        assertThrows(UserDataIntegrityException.class, () -> userMaintenanceUseCase.createUser(request));
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.ofNullable(userMock));
+        assertThrows(UserDataIntegrityException.class, () -> userMaintenanceUseCase.createUser(requestMock));
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: UserNotFoundException [UPDATE]")
     void throwUserNotFoundException_When_UpdateAUser() {
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(UserNotFoundException.class, () -> userMaintenanceUseCase.updateUser(1L, request));
+        assertThrows(UserNotFoundException.class, () -> userMaintenanceUseCase.updateUser(1L, requestMock));
     }
 
     @Test

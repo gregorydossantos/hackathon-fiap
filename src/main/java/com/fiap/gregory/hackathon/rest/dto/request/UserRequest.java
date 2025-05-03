@@ -26,8 +26,7 @@ public class UserRequest {
 
     @NotNull(message = FIELD_MANDATORY)
     @NotEmpty(message = FIELD_MANDATORY)
-    @Size(max = 8, message = PASSWORD_SIZE)
-    private Integer password;
+    private String password;
 
     @NotNull(message = FIELD_MANDATORY)
     @NotEmpty(message = FIELD_MANDATORY)
