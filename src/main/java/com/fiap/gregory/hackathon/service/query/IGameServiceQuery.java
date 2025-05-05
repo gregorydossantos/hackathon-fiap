@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IGameServiceQuery {
 
-    List<GameResponse> getGames();
+    List<GameResponse> getGames(int page, int size);
 
 }

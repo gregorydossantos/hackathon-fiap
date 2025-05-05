@@ -18,8 +18,8 @@ public class UserServiceQueryImpl implements IUserServiceQuery {
     IUserUseCaseQuery userQueryUseCase;
 
     @Override
-    public List<UserResponse> getUsers() {
-        return userQueryUseCase.getUsers();
+    public List<UserResponse> getUsers(int page, int size) {
+        return userQueryUseCase.getUsers(page, size);
     }
 
 }

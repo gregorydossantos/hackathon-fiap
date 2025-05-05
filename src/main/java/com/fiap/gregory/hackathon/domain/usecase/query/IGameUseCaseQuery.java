@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IGameUseCaseQuery {
 
-    List<GameResponse> getGames();
+    List<GameResponse> getGames(int page, int size);
 
 }

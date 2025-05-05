@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface IUserUseCaseQuery {
 
-    List<UserResponse> getUsers();
+    List<UserResponse> getUsers(int page, int size);
 
 }

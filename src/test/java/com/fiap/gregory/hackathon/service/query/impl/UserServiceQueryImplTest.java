@@ -28,9 +28,9 @@ class UserServiceQueryImplTest {
     @Test
     @DisplayName("SERVICE LAYER ::: Get a list of users successfully")
     void should_ReturnsAListOfUsers_When_CallGetUsers() {
-        when(userQueryUseCase.getUsers()).thenReturn(List.of(Mockito.mock(UserResponse.class)));
+        when(userQueryUseCase.getUsers(0,10)).thenReturn(List.of(Mockito.mock(UserResponse.class)));
 
-        var response = userServiceQuery.getUsers();
+        var response = userServiceQuery.getUsers(0, 10);
         assertNotNull(response);
     }
 

@@ -45,7 +45,7 @@ class UserQueryUseCaseImplTest {
         when(userRepository.findAll()).thenReturn(List.of(Mockito.mock(Users.class)));
         when(mapper.toListResponse(anyList())).thenReturn(List.of(Mockito.mock(UserResponse.class)));
 
-        var response = useCase.getUsers();
+        var response = useCase.getUsers(0, 10);
         assertNotNull(response);
     }
 
@@ -53,7 +53,7 @@ class UserQueryUseCaseImplTest {
     @DisplayName("USE CASE LAYER ::: Not found any user")
     void should_ReturnsUserNotFoundException_When_UsersNotExists() {
         when(userRepository.findAll()).thenReturn(new ArrayList<>());
-        assertThrows(UserNotFoundException.class, () -> useCase.getUsers());
+        assertThrows(UserNotFoundException.class, () -> useCase.getUsers(0, 10));
     }
 
 }
