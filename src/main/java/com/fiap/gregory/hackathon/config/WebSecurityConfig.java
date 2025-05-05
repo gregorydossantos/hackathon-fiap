@@ -9,7 +9,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static com.fiap.gregory.hackathon.rest.path.Routes.*;
+import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_EXCHANGES;
+import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_GAMES;
+import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
 
 @Configuration
 @EnableWebSecurity

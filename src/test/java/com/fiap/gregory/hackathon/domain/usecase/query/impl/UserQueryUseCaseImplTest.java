@@ -12,14 +12,20 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -42,18 +48,22 @@ class UserQueryUseCaseImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: Get a list of users successfully")
     void should_ReturnsAListOfUsers_When_CallGetUsers() {
-        when(userRepository.findAll()).thenReturn(List.of(Mockito.mock(Users.class)));
+        Page<Users> mockPage = new PageImpl<>(List.of(mock(Users.class)));
+
+        when(userRepository.findAll(any(Pageable.class))).thenReturn(mockPage);
         when(mapper.toListResponse(anyList())).thenReturn(List.of(Mockito.mock(UserResponse.class)));
 
-        var response = useCase.getUsers();
+        var response = useCase.getUsers(0, 10);
         assertNotNull(response);
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: Not found any user")
     void should_ReturnsUserNotFoundException_When_UsersNotExists() {
-        when(userRepository.findAll()).thenReturn(new ArrayList<>());
-        assertThrows(UserNotFoundException.class, () -> useCase.getUsers());
+        Page<Users> mockPage = new PageImpl<>(Collections.emptyList());
+
+        when(userRepository.findAll(any(Pageable.class))).thenReturn(mockPage);
+        assertThrows(UserNotFoundException.class, () -> useCase.getUsers(0, 10));
     }
 
 }

@@ -8,7 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 
 import static com.fiap.gregory.hackathon.domain.message.CommonsMessage.FIELD_MANDATORY;
-import static com.fiap.gregory.hackathon.domain.message.UserMessage.*;
+import static com.fiap.gregory.hackathon.domain.message.UserMessage.EMAIL_INVALID;
+import static com.fiap.gregory.hackathon.domain.message.UserMessage.EXCHANGE_SIZE;
+import static com.fiap.gregory.hackathon.domain.message.UserMessage.NAME_SIZE;
 
 @Data
 @Builder

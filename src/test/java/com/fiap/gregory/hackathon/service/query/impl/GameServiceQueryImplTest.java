@@ -28,9 +28,9 @@ class GameServiceQueryImplTest {
     @Test
     @DisplayName("SERVICE LAYER ::: Get a list of games")
     void getGames() {
-        when(useCaseQuery.getGames()).thenReturn(List.of(Mockito.mock(GameResponse.class)));
+        when(useCaseQuery.getGames(0,10)).thenReturn(List.of(Mockito.mock(GameResponse.class)));
 
-        var response = serviceQuery.getGames();
+        var response = serviceQuery.getGames(0,10);
         assertNotNull(response);
     }
 

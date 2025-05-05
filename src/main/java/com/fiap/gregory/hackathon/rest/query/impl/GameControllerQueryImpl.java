@@ -34,8 +34,8 @@ public class GameControllerQueryImpl implements IGameControllerQuery {
             @ApiResponse(responseCode = "500", description = "Internal error")
     })
     @Override
-    public ResponseEntity<List<GameResponse>> getGames() {
-        var response = serviceQuery.getGames();
+    public ResponseEntity<List<GameResponse>> getGames(int page, int size) {
+        var response = serviceQuery.getGames(page, size);
         return ResponseEntity.ok().body(response);
     }
 

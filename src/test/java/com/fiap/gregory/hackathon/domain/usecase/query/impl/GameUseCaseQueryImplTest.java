@@ -8,14 +8,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -34,10 +38,12 @@ class GameUseCaseQueryImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: Get a list of games")
     void getGames() {
-        when(repository.findAll()).thenReturn(List.of(Mockito.mock(Games.class)));
-        when(mapper.toListResponse(anyList())).thenReturn(List.of(Mockito.mock(GameResponse.class)));
+        Page<Games> mockPage = new PageImpl<>(List.of(mock(Games.class)));
 
-        var response = useCaseQuery.getGames();
+        when(repository.findAll(any(Pageable.class))).thenReturn(mockPage);
+        when(mapper.toListResponse(anyList())).thenReturn(List.of(mock(GameResponse.class)));
+
+        var response = useCaseQuery.getGames(0, 10);
         assertNotNull(response);
     }
     

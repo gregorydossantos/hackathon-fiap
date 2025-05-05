@@ -43,7 +43,7 @@ class GameControllerQueryImplTest {
     @Test
     @DisplayName("Should be return a HTTP status 200 - SUCCESS")
     void getGames() {
-        when(serviceQuery.getGames()).thenReturn(List.of(response));
+        when(serviceQuery.getGames(0, 10)).thenReturn(List.of(response));
 
         given()
                 .contentType(ContentType.JSON)

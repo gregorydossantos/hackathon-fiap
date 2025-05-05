@@ -43,7 +43,7 @@ class UserQueryControllerImplTest {
     @Test
     @DisplayName("Should be return a HTTP status 200 - SUCCESS")
     void should_ReturnsSuccess_When_GetUsers() {
-        when(userServiceQuery.getUsers()).thenReturn(List.of(userResponse));
+        when(userServiceQuery.getUsers(0,10)).thenReturn(List.of(userResponse));
 
         given()
                 .contentType(ContentType.JSON)

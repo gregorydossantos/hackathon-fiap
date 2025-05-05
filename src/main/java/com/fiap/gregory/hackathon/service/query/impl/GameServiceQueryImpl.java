@@ -18,8 +18,8 @@ public class GameServiceQueryImpl implements IGameServiceQuery {
     IGameUseCaseQuery useCaseQuery;
 
     @Override
-    public List<GameResponse> getGames() {
-        return useCaseQuery.getGames();
+    public List<GameResponse> getGames(int page, int size) {
+        return useCaseQuery.getGames(page, size);
     }
 
 }

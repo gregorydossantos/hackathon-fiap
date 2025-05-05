@@ -11,6 +11,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,9 +30,9 @@ public class UserUseCaseQueryImpl implements IUserUseCaseQuery {
     IEncryptionService encryptionService;
 
     @Override
-    public List<UserResponse> getUsers() {
+    public List<UserResponse> getUsers(int page, int size) {
         log.info("Get all user from database");
-        var users = userRepository.findAll();
+        var users = userRepository.findAll(setPageable(page, size));
 
         log.info("Validate if exists Users");
         if (users.isEmpty()) {
@@ -38,10 +40,10 @@ public class UserUseCaseQueryImpl implements IUserUseCaseQuery {
         }
 
         log.info("Decrypting password field from all users");
-        decryptingAllPasswords(users);
+        decryptingAllPasswords(users.getContent());
 
         log.info("Return all Users");
-        return userMapper.toListResponse(users);
+        return userMapper.toListResponse(users.getContent());
     }
 
     private void decryptingAllPasswords(List<Users> users) {
@@ -50,6 +52,10 @@ public class UserUseCaseQueryImpl implements IUserUseCaseQuery {
             user.setPassword(encryptionService.decrypt(user.getPassword()));
             log.debug("Decrypt password: {}", user.getPassword());
         }
+    }
+
+    private Pageable setPageable(int page, int size) {
+        return PageRequest.of(page, size);
     }
 
 }
