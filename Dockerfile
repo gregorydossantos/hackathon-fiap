@@ -8,7 +8,7 @@ RUN apt-get install maven -y
 RUN mvn clean install
 
 FROM openjdk:17-jdk-slim
-EXPOSE 8000
+EXPOSE 8080
 COPY --from=build /target/hackathon-1.jar hackathon.jar
 
 ENTRYPOINT ["java", "-jar", "hackathon.jar"]
