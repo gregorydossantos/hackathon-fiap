@@ -28,13 +28,13 @@ public class Games {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", unique = true)
     String name;
 
-    @Column(name = "brand", nullable = false)
+    @Column(name = "brand")
     String brand;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id")
     Long user_id;
 
 }

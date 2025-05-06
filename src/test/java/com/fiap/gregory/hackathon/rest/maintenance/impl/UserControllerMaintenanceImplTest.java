@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class UserMaintenanceControllerImplTest {
+class UserControllerMaintenanceImplTest {
 
     private static final String PATH_USERS_ID = PATH_USERS + "/1";
 

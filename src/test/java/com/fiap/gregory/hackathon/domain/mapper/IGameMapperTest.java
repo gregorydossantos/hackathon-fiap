@@ -1,6 +1,7 @@
 package com.fiap.gregory.hackathon.domain.mapper;
 
 import com.fiap.gregory.hackathon.infra.db.model.Games;
+import com.fiap.gregory.hackathon.rest.dto.request.GameRequest;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,13 @@ class IGameMapperTest {
     void toListResponse() {
         var game = Mockito.mock(Games.class);
         var response = mapper.toListResponse(List.of(game));
+        assertNotNull(response);
+    }
+
+    @Test
+    void toEntity() {
+        var gameRequest = Mockito.mock(GameRequest.class);
+        var response = mapper.toEntity(gameRequest);
         assertNotNull(response);
     }
 }

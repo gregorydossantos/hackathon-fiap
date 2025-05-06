@@ -1,5 +1,6 @@
 package com.fiap.gregory.hackathon.rest.exceptionhandler;
 
+import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.GameDataIntegrityException;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.GameNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
+import static com.fiap.gregory.hackathon.domain.message.GameMessage.GAME_ALREADY_REGISTER;
 import static com.fiap.gregory.hackathon.domain.message.GameMessage.GAME_NOT_FOUND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,6 +36,17 @@ class GameExceptionHandlerTest {
                 new GameNotFoundException(GAME_NOT_FOUND));
 
         assertNotNull(response);
-        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+
+    @Test
+    @DisplayName("Should be return GameDataIntegrityException")
+    void should_ReturnsGameDataIntegrityException_When_GameDataIntegrityException() {
+        ResponseEntity<ErrorResponse> response = gameExceptionHandler.gameDataIntegrityException(
+                new GameDataIntegrityException(GAME_ALREADY_REGISTER));
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
 }
