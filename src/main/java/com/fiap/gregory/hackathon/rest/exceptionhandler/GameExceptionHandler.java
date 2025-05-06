@@ -1,5 +1,6 @@
 package com.fiap.gregory.hackathon.rest.exceptionhandler;
 
+import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.GameDataIntegrityException;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.GameNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,12 @@ public class GameExceptionHandler {
     public ResponseEntity<ErrorResponse> gameNotFoundException(final GameNotFoundException ex) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(GameDataIntegrityException.class)
+    public ResponseEntity<ErrorResponse> gameDataIntegrityException(final GameDataIntegrityException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

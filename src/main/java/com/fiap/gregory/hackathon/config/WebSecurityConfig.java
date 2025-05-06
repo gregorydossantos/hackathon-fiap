@@ -18,6 +18,7 @@ import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
 public class WebSecurityConfig {
 
     private static final String PATH_USERS_ID = PATH_USERS + "/**";
+    private static final String PATH_GAME_ID = PATH_GAMES + "/**";
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -27,11 +28,13 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.GET, PATH_USERS).permitAll()
-                        .requestMatchers(HttpMethod.GET, PATH_GAMES).permitAll()
                         .requestMatchers(HttpMethod.POST, PATH_USERS).permitAll()
                         .requestMatchers(HttpMethod.POST, PATH_USERS_ID).permitAll()
-                        .requestMatchers(HttpMethod.POST, PATH_EXCHANGES).permitAll()
                         .requestMatchers(HttpMethod.DELETE, PATH_USERS_ID).permitAll()
+                        .requestMatchers(HttpMethod.GET, PATH_GAMES).permitAll()
+                        .requestMatchers(HttpMethod.POST, PATH_GAMES).permitAll()
+                        .requestMatchers(HttpMethod.DELETE, PATH_GAME_ID).permitAll()
+                        .requestMatchers(HttpMethod.POST, PATH_EXCHANGES).permitAll()
                         .anyRequest().authenticated())
                 .build();
     }
