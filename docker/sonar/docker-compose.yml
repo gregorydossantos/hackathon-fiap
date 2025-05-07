@@ -25,18 +25,6 @@ services:
     volumes:
       - postgres:/var/lib/postgresql
 
-  sonar_scanner:
-    image: finalgene/sonar-scanner
-    environment:
-      SONAR_HOST_URL: http://localhost:9000
-      SONAR_LOGIN_TOKEN: squ_b18595f91cc1c0850336a3334cdeecc334dde816
-    networks:
-      - sonar-network
-    volumes:
-      - sonar_scan:/cache/.sonar
-    depends_on:
-      - sonarqube
-
 networks:
   sonar-network:
     driver: bridge
@@ -45,5 +33,4 @@ volumes:
   sonarqube_data:
   sonarqube_extensions:
   sonarqube_logs:
-  sonar_scan:
   postgres:
