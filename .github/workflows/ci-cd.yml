@@ -23,10 +23,11 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@v1
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+      run: mvn sonar:sonar -Dsonar.host.url=${{ vars.SONAR_HOST_URL }} -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+#      uses: SonarSource/sonarqube-scan-action@v1
+#      env:
+#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
