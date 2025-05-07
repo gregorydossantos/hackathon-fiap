@@ -173,6 +173,7 @@
 						<exclude>**/HackathonApplication.class</exclude>
 						<exclude>**/config/**</exclude>
 						<exclude>**/domain/message/**</exclude>
+						<exclude>**/domain/mapper/**</exclude>
 						<exclude>**/infra/db/model/**</exclude>
 						<exclude>**/infra/db/repository/**</exclude>
 						<exclude>**/rest/dto/request/**</exclude>
