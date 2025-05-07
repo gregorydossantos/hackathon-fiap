@@ -5,6 +5,9 @@ import com.fiap.gregory.hackathon.infra.db.model.Users;
 import com.fiap.gregory.hackathon.infra.db.repository.IGameRepository;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
 import com.fiap.gregory.hackathon.rest.dto.request.ExchangeRequest;
+import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.GameNotFoundException;
+import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +19,11 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -35,15 +42,37 @@ class ExchangeSenderMessageImplTest {
     @Mock
     IGameRepository gameRepository;
 
+    ExchangeRequest request;
+
+    @BeforeEach
+    void setUp() {
+        request = mock(ExchangeRequest.class);
+    }
+
     @Test
     @DisplayName("MESSAGING LAYER ::: Send a message")
-    void sendMessage() {
-        var request = Mockito.mock(ExchangeRequest.class);
-
-        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(Mockito.mock(Users.class)));
-        when(gameRepository.findById(anyLong())).thenReturn(Optional.ofNullable(Mockito.mock(Games.class)));
+    void should_SendMessage_When_Method_sendMessage_isCall() {
+        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(mock(Users.class)));
+        when(gameRepository.findById(anyLong())).thenReturn(Optional.ofNullable(mock(Games.class)));
 
         senderMessage.sendMessage(request);
+        verify(userRepository).findById(anyLong());
+        verify(gameRepository).findById(anyLong());
+    }
+
+    @Test
+    @DisplayName("MESSAGING LAYER ::: UserNotFoundException")
+    void throw_UserNotFoundException_When_sendMessage_notHasUser() {
+        when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
+        assertThrows(UserNotFoundException.class, () -> senderMessage.sendMessage(request));
+    }
+
+    @Test
+    @DisplayName("MESSAGING LAYER ::: GameNotFoundException")
+    void throw_GameNotFoundException_When_sendMessage_notHasGame() {
+        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(mock(Users.class)));
+        when(gameRepository.findById(anyLong())).thenReturn(Optional.empty());
+        assertThrows(GameNotFoundException.class, () -> senderMessage.sendMessage(request));
     }
 
 }
