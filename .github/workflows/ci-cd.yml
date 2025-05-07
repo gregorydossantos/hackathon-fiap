@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
 
@@ -23,6 +21,14 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
+    - name: SonarQube Scan
+      uses: sonarqube/sonarqube-scan-action@v1
+      with:
+        projectBaseDir: .
+        args: >
+          -Dsonar.host.url=http://localhost:9000 
+          -Dsonar.login=squ_b18595f91cc1c0850336a3334cdeecc334dde816
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
