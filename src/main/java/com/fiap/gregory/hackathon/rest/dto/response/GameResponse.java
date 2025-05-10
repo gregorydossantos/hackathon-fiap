@@ -6,13 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GameResponse {
+public class GameResponse implements Serializable {
 
     @JsonProperty(access = WRITE_ONLY)
     private Long id;
