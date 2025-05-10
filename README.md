@@ -24,6 +24,7 @@ main libraries used on the market today.
 - JUnit
 - Mockito
 - SonarQube
+- Redis
 
 ### API Documentation
 #### Architecture Draw
@@ -60,10 +61,10 @@ To run and generate a report about coverage tests, run mvn test and after comple
 
 ### SonarQube:
 To build and uses report from Jacoco for generate quality and coverage tests of the API, run this commands:
-<br/> To up SonarQube container at local, navigate to the folder docker/sonar
+<br/> To up SonarQube container at local, navigate to the folder /docker
 <br/> - sudo docker compose up -d
 <br/> Generate for SonarQube the report from Jacoco
-<br/> - mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_b18595f91cc1c0850336a3334cdeecc334dde816
+<br/> - mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_a683a0d54b71d646765d8dbc8a92652bf971ec7a
 ![Web 1](https://github.com/gregorydossantos/hackathon-fiap/blob/develop/assets/sonar-qube.png)
 
 ### Documentation (Swagger - Endpoints):
