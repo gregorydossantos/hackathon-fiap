@@ -11,7 +11,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,6 @@ public class UserUseCaseQueryImpl implements IUserUseCaseQuery {
     IEncryptionService encryptionService;
 
     @Override
-    @Cacheable("users")
     public List<UserResponse> getUsers(int page, int size) {
         log.info("Get all user from database");
         var users = userRepository.findAll(setPageable(page, size));

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e31946e5-5ae1-4360-9686-8cf619010d99",
+		"_postman_id": "303cbda4-1f4c-4dfd-bede-f802edf2f9ce",
 		"name": "Hackathon-Fiap",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12445198"
@@ -26,8 +26,7 @@
 										"header": [
 											{
 												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
+												"value": "application/json"
 											}
 										],
 										"body": {
@@ -51,6 +50,18 @@
 												"api",
 												"v1",
 												"users"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0",
+													"disabled": true
+												},
+												{
+													"key": "size",
+													"value": "10",
+													"disabled": true
+												}
 											]
 										}
 									},
@@ -189,6 +200,18 @@
 														"api",
 														"v1",
 														"games"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0",
+															"disabled": true
+														},
+														{
+															"key": "size",
+															"value": "10",
+															"disabled": true
+														}
 													]
 												}
 											},
@@ -199,6 +222,60 @@
 								{
 									"name": "Maintenance",
 									"item": [
+										{
+											"name": "createGame",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"name\":\"\",\n    \"brand\":\"\",    \n    \"user_id\": 1\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "https://hackathon-fiap-api.onrender.com/api/v1/games",
+													"protocol": "https",
+													"host": [
+														"hackathon-fiap-api",
+														"onrender",
+														"com"
+													],
+													"path": [
+														"api",
+														"v1",
+														"games"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "deleteGame",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "https://hackathon-fiap-api.onrender.com/api/v1/games/1",
+													"protocol": "https",
+													"host": [
+														"hackathon-fiap-api",
+														"onrender",
+														"com"
+													],
+													"path": [
+														"api",
+														"v1",
+														"games",
+														"1"
+													]
+												}
+											},
+											"response": []
+										},
 										{
 											"name": "sendMessage",
 											"request": {
@@ -280,6 +357,18 @@
 												"api",
 												"v1",
 												"users"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "0",
+													"disabled": true
+												},
+												{
+													"key": "size",
+													"value": "10",
+													"disabled": true
+												}
 											]
 										}
 									},
@@ -297,7 +386,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"name\": \"Pedro\",\n    \"email\": \"pedro@test.com\",\n    \"password\": \"44444444\",\n    \"exchange\": \"Mail\"\n}",
+											"raw": "{\n    \"name\":\"Gregory\",\n    \"email\": \"gregory@test.com\",\n    \"password\": 44444444,\n    \"exchange\": \"Mail\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -406,6 +495,18 @@
 														"api",
 														"v1",
 														"games"
+													],
+													"query": [
+														{
+															"key": "page",
+															"value": "0",
+															"disabled": true
+														},
+														{
+															"key": "size",
+															"value": "10",
+															"disabled": true
+														}
 													]
 												}
 											},
@@ -416,6 +517,54 @@
 								{
 									"name": "Maintenance",
 									"item": [
+										{
+											"name": "createGame",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"name\":\"\",\n    \"brand\":\"\",\n    \"user_id\": 1\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{url-test}}/api/v1/games",
+													"host": [
+														"{{url-test}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"games"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "deleteGame",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "{{url-test}}/api/v1/games/1",
+													"host": [
+														"{{url-test}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"games",
+														"1"
+													]
+												}
+											},
+											"response": []
+										},
 										{
 											"name": "sendMessage",
 											"request": {

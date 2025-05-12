@@ -1,16 +1,6 @@
 version: '3'
 
 services:
-  redis:
-    image: redis
-    container_name: hackathon-cache-db
-    ports:
-      - "6379:6379"
-    volumes:
-      - cache:/data
-    networks:
-      - hackathon-network
-
   postgres:
     image: postgres
     container_name: hackathon-database
@@ -48,6 +38,16 @@ services:
       - hackathon-network
     volumes:
       - sonarqube_postgres:/var/lib/postgresql
+
+#  redis:
+#    image: redis
+#    container_name: hackathon-cache-db
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - cache:/data
+#    networks:
+#      - hackathon-network
 
 networks:
   hackathon-network:

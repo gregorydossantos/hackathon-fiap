@@ -9,7 +9,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class GameUseCaseQueryImpl implements IGameUseCaseQuery {
     IGameMapper gameMapper;
 
     @Override
-    @Cacheable("games")
+    //@Cacheable("games")
     public List<GameResponse> getGames(int page, int size) {
         log.info("Get all games from database");
         var games = gameRepository.findAll(setPageable(page, size));
