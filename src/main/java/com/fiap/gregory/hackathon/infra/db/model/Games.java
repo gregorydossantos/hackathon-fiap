@@ -28,7 +28,7 @@ public class Games {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     String name;
 
     @Column(name = "brand")
