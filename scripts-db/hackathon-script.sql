@@ -1,14 +1,14 @@
 -- MASS OF DATA
 -- USERS
-INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-1', 'test-1@test.com', 11111111, 'Mail');
-INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-2', 'test-2@test.com', 22222222, 'In person');
-INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-3', 'test-3@test.com', 33333333, 'Mail');
-INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-4', 'test-4@test.com', 44444444, 'In person');
-INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-5', 'test-5@test.com', 55555555, 'Mail');
-INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-6', 'test-6@test.com', 66666666, 'In person');
-INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-7', 'test-7@test.com', 77777777, 'Mail');
-INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-8', 'test-8@test.com', 88888888, 'In person');
-INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-9', 'test-9@test.com', 99999999, 'Mail');
+INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-1', 'test-1@test.com', '11111111', 'Mail');
+INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-2', 'test-2@test.com', '22222222', 'In person');
+INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-3', 'test-3@test.com', '33333333', 'Mail');
+INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-4', 'test-4@test.com', '44444444', 'In person');
+INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-5', 'test-5@test.com', '55555555', 'Mail');
+INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-6', 'test-6@test.com', '66666666', 'In person');
+INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-7', 'test-7@test.com', '77777777', 'Mail');
+INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-8', 'test-8@test.com', '88888888', 'In person');
+INSERT INTO users_tb(name, email, password, exchange) VALUES('Test-9', 'test-9@test.com', '99999999', 'Mail');
 
 -- GAMES
 INSERT INTO games_tb(name, brand, user_id) VALUES('Splatoon', 'Nintendo', 2);

@@ -1,11 +1,6 @@
 package com.fiap.gregory.hackathon.infra.db.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "users_tb")
+@Table(schema = "public", name = "users_tb", uniqueConstraints=@UniqueConstraint(columnNames = "email"))
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Users {
 
