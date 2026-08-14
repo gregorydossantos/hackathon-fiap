@@ -1,6 +1,5 @@
 package com.fiap.gregory.hackathon.integration.steps;
 
-import com.fiap.gregory.hackathon.infra.db.model.Users;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import io.cucumber.java.en.And;
@@ -22,47 +21,51 @@ public class UserControllerQueryStep {
     @Autowired
     private IUserRepository userRepository;
 
-    private ResponseEntity<UserResponse[]> response;
+    private ResponseEntity<Void> createResponse;
+    private ResponseEntity<UserResponse[]> getUserResponse;
 
-    @Given("that i have registered users in my database")
-    public void thatIHaveRegisteredUsersInMyDatabase() {
-        System.out.println("### LAYER DATABASE - Create a user for the test ###");
-        var user = Users.builder()
-                .name("Gregory")
-                .email("greg@email.com")
-                .password("11111111")
-                .exchange("Mail")
-                .build();
-        userRepository.saveAndFlush(user);
+    @Given("i send a POST request with name email password exchange successfully")
+    public void iSendAPOSTRequestWithNameEmailPasswordExchangeSuccessfully() {
+        String json = """
+                {
+                    "name":"Gregory",
+                    "email": "gregory@test.com",
+                    "password": 44444444,
+                    "exchange": "Mail"
+                }
+                """;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(json, headers);
 
-        System.out.println("### LAYER DATABASE - Query users ###");
-        var users = userRepository.findAll();
+        System.out.println("### LAYER CONTROLLER - Create a user: " + json);
+        createResponse = testRestTemplate.exchange(PATH_USERS, HttpMethod.POST, entity, Void.class);
+    }
 
-        System.out.println("### LAYER DATABASE - Users: " + users);
-        assertThat(users).isNotEmpty();
+    @And("response must be http status code {int}")
+    public void responseMustBeHttpStatusCode(int statusCode) {
+        System.out.println("### LAYER CONTROLLER - Validate response status code equals 201 ###");
+        assertThat(createResponse.getStatusCode().value()).isEqualTo(statusCode);
     }
 
     @When("i do an request GET")
     public void iDoAnRequestGET() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        System.out.println("### LAYER CONTROLLER - Making request GET ###");
-        response = testRestTemplate.exchange(PATH_USERS, HttpMethod.GET, new HttpEntity<>(headers),
+        System.out.println("### LAYER CONTROLLER - Query users ###");
+        getUserResponse = testRestTemplate.exchange(PATH_USERS, HttpMethod.GET, null,
                 UserResponse[].class);
 
-        System.out.println("### LAYER CONTROLLER - Response: " + response);
+        System.out.println("### LAYER CONTROLLER - Response: " + getUserResponse);
     }
 
     @Then("response must be status code {int}")
     public void responseMustBeStatus(int statusCode) {
         System.out.println("### LAYER CONTROLLER - Validate response status code equals 200 ###");
-        assertThat(response.getStatusCode().value()).isEqualTo(statusCode);
+        assertThat(getUserResponse.getStatusCode().value()).isEqualTo(statusCode);
     }
 
     @And("the body must contain a list of users")
     public void theBodyMustContainAListOfUsers() {
         System.out.println("### LAYER CONTROLLER - Validate list of users ###");
-        assertThat(response.getBody()).isNotNull();
+        assertThat(getUserResponse.getBody()).isNotNull();
     }
 }
