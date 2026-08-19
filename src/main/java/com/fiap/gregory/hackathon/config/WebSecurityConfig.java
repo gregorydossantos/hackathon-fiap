@@ -33,6 +33,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.GET, PATH_USERS).permitAll()
                         .requestMatchers(HttpMethod.POST, PATH_USERS).permitAll()
+                        .requestMatchers(HttpMethod.PATCH, PATH_USERS_ID).permitAll()
                         .requestMatchers(HttpMethod.POST, PATH_USERS_ID).permitAll()
                         .requestMatchers(HttpMethod.DELETE, PATH_USERS_ID).permitAll()
                         .requestMatchers(HttpMethod.GET, PATH_GAMES).permitAll()

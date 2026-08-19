@@ -25,6 +25,7 @@ main libraries used on the market today. I choose use the DDD pattern for struct
 - Mockito
 - SonarQube
 - Redis (I had to comment this implementation, because I couldn't upload redis service at PROD environment)
+- Cucumber 7.31.0
 
 ### API Documentation
 #### Architecture Draw
@@ -186,8 +187,13 @@ follow these steps:
 <br/> - Run the command: sudo docker compose up -d
 <br/> - To stop container: sudo docker compose down
 <br/> I also included a directory containing the endpoint call collections in the /collections folder
-<br/> If we want use Redis, you need uncomment these files:
+<br/> If we want use Redis, you need uncomment lines at these files:
 - docker-compose.yml
 - applications.yml (all environments)
 - HackathonApplication.java
 - UserUseCaseQueryImpl.java
+<br/> To have access in H2 console (web) you need to uncomment lines at these file:
+- WebSecurityConfig.java
+<br/> You can run integration tests using DEV profile, but first you need include some users using the resource from API Users 
+<br/> To include the games data you just need copy/paste from scripts-db folder the commands line to insert data on database 
+<br/> After that you can running integration tests using Cucumber in the application environment 

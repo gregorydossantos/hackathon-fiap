@@ -5,8 +5,11 @@ import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserDataIntegr
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import static com.fiap.gregory.hackathon.domain.message.UserMessage.EMAIL_INVALID;
 
 @ControllerAdvice
 public class UserExceptionHandler {
@@ -29,4 +32,9 @@ public class UserExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> userBadRequestException(final MethodArgumentNotValidException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(EMAIL_INVALID);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 }

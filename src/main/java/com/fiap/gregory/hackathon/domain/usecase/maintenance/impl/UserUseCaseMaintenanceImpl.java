@@ -4,6 +4,7 @@ import com.fiap.gregory.hackathon.domain.mapper.IUserMapper;
 import com.fiap.gregory.hackathon.domain.usecase.maintenance.IUserUseCaseMaintenance;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
+import com.fiap.gregory.hackathon.rest.dto.request.UserUpdateRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserDataIntegrityException;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserNotFoundException;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import static com.fiap.gregory.hackathon.domain.message.UserMessage.USER_ALREADY_REGISTER;
 import static com.fiap.gregory.hackathon.domain.message.UserMessage.USER_NOT_FOUND;
+import static com.fiap.gregory.hackathon.useful.StringUseful.nonNullOrEmpty;
 
 @Slf4j
 @Service
@@ -35,8 +37,8 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
             throw new UserDataIntegrityException(USER_ALREADY_REGISTER);
         }
 
-        log.info("[CREATE] ==== Initialize encryption password field");
-        encryptPassword(request);
+        log.info("[CREATE] ==== Encrypting user password");
+        request.setPassword(encryptionService.encrypt(request.getPassword()));
 
         log.info("Convert request in entity");
         var user = mapper.toEntity(request);
@@ -45,7 +47,7 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
     }
 
     @Override
-    public UserResponse updateUser(Long id, UserRequest request) {
+    public UserResponse updateUser(Long id, UserUpdateRequest request) {
         log.info("====[UPDATE USER]====");
         log.info("Get register by ID {} in database", id);
         var oldUser = userRepository.findById(id);
@@ -55,8 +57,10 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
             throw new UserNotFoundException(USER_NOT_FOUND);
         }
 
-        log.info("[UPDATE] ==== Initialize encryption password field");
-        encryptPassword(request);
+        log.info("[UPDATE] ==== Update encryption password field");
+        if (nonNullOrEmpty(request.getPassword())) {
+            request.setPassword(encryptionService.encrypt(request.getPassword()));
+        }
 
         log.info("Update old user");
         var userUpdate = mapper.toUpdate(oldUser.get(), request);
@@ -84,10 +88,4 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
     private boolean userExists(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
-
-    private void encryptPassword(UserRequest request) {
-        log.info("Encrypting user password");
-        request.setPassword(encryptionService.encrypt(request.getPassword()));
-    }
-
 }

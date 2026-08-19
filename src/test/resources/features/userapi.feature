@@ -2,9 +2,21 @@
 
   Feature: Users
 
-    Scenario: Query all users from database
+    Scenario: Get all users
+      Given i do an request GET in the resource users
+      Then users response must be status code 200
+      And the body must contain a list of users
+
+    Scenario: Create a user
       Given i send a POST request with name email password exchange successfully
-      And response must be http status code 201
-      When i do an request GET
-      Then response must be status code 200
+      Then return must be status code 201
+
+    Scenario: Update user
+      Given i send a PATCH request with fields that i wanna change
+      Then users response must be status code 200
+      And the body must contain a list of users
+
+    Scenario: Delete user
+      Given i do an request GET in the resource users
+      Then users response must be status code 200
       And the body must contain a list of users
