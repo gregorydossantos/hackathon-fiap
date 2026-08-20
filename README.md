@@ -102,8 +102,8 @@ I use RENDER to deploy app.
 ]
 ```
 
-#### [POST] Update user
-- Payload request
+#### [PATCH] Update user
+- Payload request (json ignore properties = true)
 ```json
 {
   "name":"Test update",

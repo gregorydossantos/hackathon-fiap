@@ -20,72 +20,100 @@ public class UserControllerQueryStep {
     @Autowired
     private IUserRepository userRepository;
 
-    private ResponseEntity<Void> createResponse;
-    private ResponseEntity<UserResponse[]> response;
+    private ResponseEntity<Void> voidResponse;
+    private ResponseEntity<UserResponse> userResponse;
+    private ResponseEntity<UserResponse[]> userResponseList;
 
     @Given("i do an request GET in the resource users")
     public void iDoAnRequestGETInTheResourceUsers() {
         System.out.println("### USERS-API LAYER CONTROLLER - Get all Users - ###");
-        response = testRestTemplate.exchange(PATH_USERS, HttpMethod.GET, null, UserResponse[].class);
+        userResponseList = testRestTemplate.exchange(PATH_USERS, HttpMethod.GET, null, UserResponse[].class);
     }
 
-    @Then("users response must be status code {int}")
-    public void usersResponseMustBeStatus(int statusCode) {
+    @Then("response from GET must be status code {int}")
+    public void responseFromGETMustBeStatusCode(int statusCode) {
         System.out.println("### USERS-API LAYER CONTROLLER - Validate response status code equals 200 ###");
-        assertThat(response.getStatusCode().value()).isEqualTo(statusCode);
+        assertThat(userResponseList.getStatusCode().value()).isEqualTo(statusCode);
     }
 
     @And("the body must contain a list of users")
     public void theBodyMustContainAListOfUsers() {
         System.out.println("### USERS-API LAYER CONTROLLER - Validate list of users ###");
-        assertThat(response.getBody()).isNotNull();
+        assertThat(userResponseList.getBody()).isNotNull();
     }
 
     @Given("i send a POST request with name email password exchange successfully")
     public void iSendAPOSTRequestWithNameEmailPasswordExchangeSuccessfully() {
         String json = """
                 {
-                    "name":"Test",
-                    "email": "test@test.com",
-                    "password": "test-password",
-                    "exchange": "In person"
+                    "name":"Lucca",
+                    "email": "uca@test.com",
+                    "password": "uca-pass",
+                    "exchange": "Mail"
                 }
                 """;
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> entity = new HttpEntity<>(json, headers);
 
         System.out.println("### USERS-API LAYER CONTROLLER - Create a user: " + json);
-        createResponse = testRestTemplate.exchange(PATH_USERS, HttpMethod.POST, entity, Void.class);
+        voidResponse = testRestTemplate.exchange(PATH_USERS, HttpMethod.POST, entity, Void.class);
     }
 
-    @Then("return must be status code {int}")
-    public void returnMustBeStatusCode(int statusCode) {
+    @Then("response from POST must be status code {int}")
+    public void responseFromPOSTMustBeStatusCode(int statusCode) {
         System.out.println("### USERS-API LAYER CONTROLLER - Validate response status code equals 201 ###");
-        assertThat(createResponse.getStatusCode().value()).isEqualTo(statusCode);
+        assertThat(voidResponse.getStatusCode().value()).isEqualTo(statusCode);
     }
 
-//    @Given("i send a POST request with name email password exchange successfully")
-//    public void iSendAPOSTRequestWithNameEmailPasswordExchangeSuccessfully() {
-//        String json = """
-//                {
-//                    "name":"Test",
-//                    "email": "test@test.com",
-//                    "password": "test-password",
-//                    "exchange": "In person"
-//                }
-//                """;
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        HttpEntity<String> entity = new HttpEntity<>(json, headers);
-//
-//        System.out.println("### USERS-API LAYER CONTROLLER - Create a user: " + json);
-//        createResponse = testRestTemplate.exchange(PATH_USERS, HttpMethod.POST, entity, Void.class);
-//    }
-//
-//    @Then("return must be status code {int}")
-//    public void returnMustBeStatusCode(int statusCode) {
-//        System.out.println("### USERS-API LAYER CONTROLLER - Validate response status code equals 201 ###");
-//        assertThat(createResponse.getStatusCode().value()).isEqualTo(statusCode);
-//    }
+    @Given("i send a PATCH request with fields that i wanna change successfully {int}")
+    public void iSendAPATCHRequestWithFieldsThatIWannaChangeSuccessfully(int id) {
+        String json = """
+                {
+                    "name":"Eliza",
+                    "email": "eliza@test.com",
+                }
+                """;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(json, headers);
+
+        System.out.println("### USERS-API LAYER CONTROLLER - Update a user: " + json);
+        var pathResource = PATH_USERS + "/" + id;
+        userResponse = testRestTemplate.exchange(pathResource, HttpMethod.PATCH, entity, UserResponse.class);
+    }
+
+    @Then("response from PATCH must be status code {int}")
+    public void responseFromPATCHMustBeStatusCode(int statusCode) {
+        System.out.println("### USERS-API LAYER CONTROLLER - Validate response status code equals 200 ###");
+        assertThat(userResponse.getStatusCode().value()).isEqualTo(statusCode);
+    }
+
+    @And("the body must contain updated user")
+    public void theBodyMustContainUpdatedUser() {
+        System.out.println("### USERS-API LAYER CONTROLLER - Update user ###");
+        assertThat(userResponse.getBody()).isNotNull();
+    }
+
+    @Given("i do an request DELETE passing the id user {int}")
+    public void iDoAnRequestDELETEPassingTheIdUser(int id) {
+        System.out.println("### USERS-API LAYER CONTROLLER - Delete user ###");
+
+        var pathResource = PATH_USERS + "/" + id;
+        voidResponse = testRestTemplate.exchange(pathResource, HttpMethod.DELETE, null, Void.class);
+    }
+
+    @And("user was deleted from database {long}")
+    public void userWasDeletedFromDatabase(long idUser) {
+        System.out.println("### USERS-API LAYER REPOSITORY - Check if user was deleted from database ###");
+        assertThat(userRepository.findById(idUser).isEmpty()).isTrue();
+    }
+
+    @Then("response from DELETE must be status code {int}")
+    public void responseFromDELETEMustBeStatusCode(int statusCode) {
+        System.out.println("### USERS-API LAYER CONTROLLER - Validate response status code equals 200 ###");
+        assertThat(voidResponse.getStatusCode().value()).isEqualTo(statusCode);
+    }
 }

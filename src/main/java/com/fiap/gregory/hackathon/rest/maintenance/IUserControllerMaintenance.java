@@ -17,7 +17,7 @@ public interface IUserControllerMaintenance {
     @PatchMapping(path = "/{id}", consumes = APPLICATION_JSON_VALUE)
     ResponseEntity<UserResponse> updateUser(@PathVariable("id") Long id, @RequestBody @Valid UserUpdateRequest request);
 
-    @DeleteMapping(path = "/{id}", consumes = APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "/{id}")
     ResponseEntity<Void> deleteUser(@PathVariable("id") Long id);
 
 }
