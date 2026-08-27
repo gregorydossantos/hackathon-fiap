@@ -1,10 +1,13 @@
 package com.fiap.gregory.hackathon.integration.steps;
 
+import com.fiap.gregory.hackathon.infra.db.model.Users;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
@@ -12,6 +15,7 @@ import org.springframework.http.*;
 import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserControllerQueryStep {
 
     @Autowired
@@ -23,6 +27,31 @@ public class UserControllerQueryStep {
     private ResponseEntity<Void> voidResponse;
     private ResponseEntity<UserResponse> userResponse;
     private ResponseEntity<UserResponse[]> userResponseList;
+    private Users user;
+
+    @BeforeAll
+    void setUp() {
+        userRepository.deleteAll();
+    }
+
+    @Given("i send a POST request with name email password exchange successfully")
+    public void iSendAPOSTRequestWithNameEmailPasswordExchangeSuccessfully() {
+        String json = """
+                {
+                    "name":"Test",
+                    "email": "test@test.com",
+                    "password": "test-pass",
+                    "exchange": "Mail"
+                }
+                """;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(json, headers);
+
+        System.out.println("### USERS-API LAYER CONTROLLER - Create a user: " + json);
+        voidResponse = testRestTemplate.exchange(PATH_USERS, HttpMethod.POST, entity, Void.class);
+    }
 
     @Given("i do an request GET in the resource users")
     public void iDoAnRequestGETInTheResourceUsers() {
@@ -42,37 +71,19 @@ public class UserControllerQueryStep {
         assertThat(userResponseList.getBody()).isNotNull();
     }
 
-    @Given("i send a POST request with name email password exchange successfully")
-    public void iSendAPOSTRequestWithNameEmailPasswordExchangeSuccessfully() {
-        String json = """
-                {
-                    "name":"Lucca",
-                    "email": "uca@test.com",
-                    "password": "uca-pass",
-                    "exchange": "Mail"
-                }
-                """;
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(json, headers);
-
-        System.out.println("### USERS-API LAYER CONTROLLER - Create a user: " + json);
-        voidResponse = testRestTemplate.exchange(PATH_USERS, HttpMethod.POST, entity, Void.class);
-    }
-
     @Then("response from POST must be status code {int}")
     public void responseFromPOSTMustBeStatusCode(int statusCode) {
         System.out.println("### USERS-API LAYER CONTROLLER - Validate response status code equals 201 ###");
         assertThat(voidResponse.getStatusCode().value()).isEqualTo(statusCode);
     }
 
-    @Given("i send a PATCH request with fields that i wanna change successfully {int}")
-    public void iSendAPATCHRequestWithFieldsThatIWannaChangeSuccessfully(int id) {
+    @Given("i send a PATCH request with fields that i wanna change successfully")
+    public void iSendAPATCHRequestWithFieldsThatIWannaChangeSuccessfully() {
+        user = userRepository.findAll().stream().findFirst().get();
         String json = """
                 {
-                    "name":"Eliza",
-                    "email": "eliza@test.com",
+                    "name":"Gregory",
+                    "email": "greg@test.com",
                 }
                 """;
 
@@ -81,7 +92,7 @@ public class UserControllerQueryStep {
         HttpEntity<String> entity = new HttpEntity<>(json, headers);
 
         System.out.println("### USERS-API LAYER CONTROLLER - Update a user: " + json);
-        var pathResource = PATH_USERS + "/" + id;
+        var pathResource = PATH_USERS + "/" + user.getId().toString();
         userResponse = testRestTemplate.exchange(pathResource, HttpMethod.PATCH, entity, UserResponse.class);
     }
 
@@ -97,18 +108,18 @@ public class UserControllerQueryStep {
         assertThat(userResponse.getBody()).isNotNull();
     }
 
-    @Given("i do an request DELETE passing the id user {int}")
-    public void iDoAnRequestDELETEPassingTheIdUser(int id) {
+    @Given("i do an request DELETE passing the id user")
+    public void iDoAnRequestDELETEPassingTheIdUser() {
         System.out.println("### USERS-API LAYER CONTROLLER - Delete user ###");
 
-        var pathResource = PATH_USERS + "/" + id;
+        var pathResource = PATH_USERS + "/" + user.getId().toString();
         voidResponse = testRestTemplate.exchange(pathResource, HttpMethod.DELETE, null, Void.class);
     }
 
-    @And("user was deleted from database {long}")
-    public void userWasDeletedFromDatabase(long idUser) {
+    @And("user was deleted from database")
+    public void userWasDeletedFromDatabase() {
         System.out.println("### USERS-API LAYER REPOSITORY - Check if user was deleted from database ###");
-        assertThat(userRepository.findById(idUser).isEmpty()).isTrue();
+        assertThat(userRepository.findById(user.getId()).isEmpty()).isTrue();
     }
 
     @Then("response from DELETE must be status code {int}")
