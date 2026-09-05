@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 public interface IGameControllerQuery {
 
-    @GetMapping(consumes = APPLICATION_JSON_VALUE)
+    @GetMapping
     ResponseEntity<List<GameResponse>> getGames(@RequestParam(value = "page", defaultValue = "0") int page,
                                                 @RequestParam(value = "size", defaultValue = "10") int size);
 

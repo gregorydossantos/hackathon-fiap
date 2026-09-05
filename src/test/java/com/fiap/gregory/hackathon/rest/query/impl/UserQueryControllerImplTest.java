@@ -46,7 +46,6 @@ class UserQueryControllerImplTest {
         when(userServiceQuery.getUsers(0,10)).thenReturn(List.of(userResponse));
 
         given()
-                .contentType(ContentType.JSON)
                 .when().get(PATH_USERS)
                 .then().statusCode(HttpStatus.OK.value());
     }
