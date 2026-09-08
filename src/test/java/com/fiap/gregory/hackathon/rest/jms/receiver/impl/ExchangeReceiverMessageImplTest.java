@@ -7,6 +7,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
@@ -20,6 +21,6 @@ class ExchangeReceiverMessageImplTest {
     @DisplayName("MESSAGING LAYER ::: Receive a message")
     void receiveMessage() {
         receiverMessage.receiveMessage("Test");
-        verify(receiverMessage).receiveMessage(anyString());
+        verify(receiverMessage, times(1)).receiveMessage(anyString());
     }
 }

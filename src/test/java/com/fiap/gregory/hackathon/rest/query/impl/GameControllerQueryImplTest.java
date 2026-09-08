@@ -46,7 +46,6 @@ class GameControllerQueryImplTest {
         when(serviceQuery.getGames(0, 10)).thenReturn(List.of(response));
 
         given()
-                .contentType(ContentType.JSON)
                 .when().get(PATH_GAMES)
                 .then().statusCode(HttpStatus.OK.value());
     }
