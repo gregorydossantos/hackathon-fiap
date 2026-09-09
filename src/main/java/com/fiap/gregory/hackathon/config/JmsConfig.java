@@ -17,5 +17,4 @@ public class JmsConfig {
         configurer.configure(factory, connectionFactory);
         return factory;
     }
-
 }

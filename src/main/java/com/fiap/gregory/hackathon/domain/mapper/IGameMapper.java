@@ -9,9 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface IGameMapper {
-
     List<GameResponse> toListResponse(List<Games> games);
 
     Games toEntity(GameRequest request);
-
 }

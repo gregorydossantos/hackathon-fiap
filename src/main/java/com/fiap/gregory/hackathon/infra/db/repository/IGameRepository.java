@@ -9,7 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface IGameRepository extends JpaRepository<Games, Long>, PagingAndSortingRepository<Games, Long> {
-
     Optional<Games> findByName(String value);
-
 }

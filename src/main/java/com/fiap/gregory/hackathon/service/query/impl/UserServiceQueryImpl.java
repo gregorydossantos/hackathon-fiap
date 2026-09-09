@@ -21,5 +21,4 @@ public class UserServiceQueryImpl implements IUserServiceQuery {
     public List<UserResponse> getUsers(int page, int size) {
         return userQueryUseCase.getUsers(page, size);
     }
-
 }

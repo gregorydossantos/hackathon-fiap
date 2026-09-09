@@ -23,5 +23,4 @@ public class UserResponse implements Serializable {
     @JsonProperty(access = WRITE_ONLY)
     private String password;
     private String exchange;
-
 }

@@ -38,5 +38,4 @@ public class GameControllerQueryImpl implements IGameControllerQuery {
         var response = serviceQuery.getGames(page, size);
         return ResponseEntity.ok().body(response);
     }
-
 }

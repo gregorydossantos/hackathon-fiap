@@ -44,5 +44,4 @@ public class GameUseCaseQueryImpl implements IGameUseCaseQuery {
     private Pageable setPageable(int page, int size) {
         return PageRequest.of(page, size);
     }
-
 }

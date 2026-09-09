@@ -36,5 +36,4 @@ public class Games {
 
     @Column(name = "user_id")
     Long user_id;
-
 }

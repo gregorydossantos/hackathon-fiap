@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 public interface IGameControllerQuery {
-
     @GetMapping
     ResponseEntity<List<GameResponse>> getGames(@RequestParam(value = "page", defaultValue = "0") int page,
                                                 @RequestParam(value = "size", defaultValue = "10") int size);
-
 }

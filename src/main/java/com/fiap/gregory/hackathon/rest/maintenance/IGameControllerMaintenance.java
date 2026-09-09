@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public interface IGameControllerMaintenance {
-
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     ResponseEntity<Void> createGame(@Valid @RequestBody GameRequest request);
 
     @DeleteMapping(path = "/{id}", consumes = APPLICATION_JSON_VALUE)
     ResponseEntity<Void> deleteGame(@PathVariable("id") Long id);
-
 }

@@ -36,5 +36,4 @@ public class EncryptionServiceImpl implements IEncryptionService {
     public String decrypt(String str) {
         return encryptor.decrypt(str);
     }
-
 }

@@ -39,5 +39,4 @@ public class Users {
 
     @Column(name = "exchange", length = 10, nullable = false)
     String exchange;
-
 }

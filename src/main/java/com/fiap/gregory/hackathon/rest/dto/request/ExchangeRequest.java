@@ -1,5 +1,6 @@
 package com.fiap.gregory.hackathon.rest.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -9,14 +10,13 @@ import static com.fiap.gregory.hackathon.domain.message.CommonsMessage.FIELD_MAN
 
 @Data
 @Builder
+@NotNull(message = FIELD_MANDATORY)
+@NotEmpty(message = FIELD_MANDATORY)
 public class ExchangeRequest {
 
-    @NotNull(message = FIELD_MANDATORY)
-    @NotEmpty(message = FIELD_MANDATORY)
+    @JsonProperty("user_id")
     private Long user_id;
 
-    @NotNull(message = FIELD_MANDATORY)
-    @NotEmpty(message = FIELD_MANDATORY)
+    @JsonProperty("game_id")
     private Long game_id;
-
 }

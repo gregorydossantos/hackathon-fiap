@@ -56,5 +56,4 @@ public class GameUseCaseMaintenanceImpl implements IGameUseCaseMaintenance {
     private boolean gameExists(String name) {
         return gameRepository.findByName(name).isPresent();
     }
-
 }

@@ -38,5 +38,4 @@ public class UserControllerQueryImpl implements IUserControllerQuery {
         var response = userService.getUsers(page, size);
         return ResponseEntity.ok().body(response);
     }
-
 }

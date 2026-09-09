@@ -1,26 +1,24 @@
 package com.fiap.gregory.hackathon.rest.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
-import static com.fiap.gregory.hackathon.domain.message.CommonsMessage.FIELD_MANDATORY;
 import static com.fiap.gregory.hackathon.domain.message.UserMessage.EMAIL_INVALID;
+import static com.fiap.gregory.hackathon.domain.message.UserMessage.EMAIL_REGEX;
 
 @Data
 @Builder
-@NotNull(message = FIELD_MANDATORY)
-@NotEmpty(message = FIELD_MANDATORY)
-public class UserRequest {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UserUpdateRequest {
 
     @JsonProperty("name")
     private String name;
 
     @JsonProperty("email")
-    @Email(message = EMAIL_INVALID)
+    @Email(regexp = EMAIL_REGEX, message = EMAIL_INVALID)
     private String email;
 
     @JsonProperty("password")

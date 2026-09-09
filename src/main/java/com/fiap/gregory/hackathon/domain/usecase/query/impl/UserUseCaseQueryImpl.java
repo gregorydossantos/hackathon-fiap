@@ -57,5 +57,4 @@ public class UserUseCaseQueryImpl implements IUserUseCaseQuery {
     private Pageable setPageable(int page, int size) {
         return PageRequest.of(page, size);
     }
-
 }

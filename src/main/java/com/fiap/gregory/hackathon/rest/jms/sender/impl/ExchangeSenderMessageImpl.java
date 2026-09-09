@@ -59,5 +59,4 @@ public class ExchangeSenderMessageImpl implements IExchangeSenderMessage {
                 "wants to trade the " + game.getName() +
                 "with you!";
     }
-
 }

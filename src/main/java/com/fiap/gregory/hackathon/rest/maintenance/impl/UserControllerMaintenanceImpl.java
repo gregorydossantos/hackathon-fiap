@@ -1,6 +1,7 @@
 package com.fiap.gregory.hackathon.rest.maintenance.impl;
 
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
+import com.fiap.gregory.hackathon.rest.dto.request.UserUpdateRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.rest.maintenance.IUserControllerMaintenance;
 import com.fiap.gregory.hackathon.service.maintenance.IUserServiceMaintenance;
@@ -48,7 +49,7 @@ public class UserControllerMaintenanceImpl implements IUserControllerMaintenance
             @ApiResponse(responseCode = "500", description = "Internal error")
     })
     @Override
-    public ResponseEntity<UserResponse> updateUser(Long id, UserRequest request) {
+    public ResponseEntity<UserResponse> updateUser(Long id, UserUpdateRequest request) {
         var response = userServiceMaintenance.updateUser(id, request);
         return ResponseEntity.ok().body(response);
     }

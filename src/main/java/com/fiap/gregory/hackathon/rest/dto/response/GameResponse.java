@@ -21,5 +21,4 @@ public class GameResponse implements Serializable {
     private String name;
     private String brand;
     private Long user_id;
-
 }

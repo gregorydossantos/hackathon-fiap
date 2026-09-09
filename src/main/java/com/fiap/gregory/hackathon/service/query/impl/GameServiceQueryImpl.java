@@ -21,5 +21,4 @@ public class GameServiceQueryImpl implements IGameServiceQuery {
     public List<GameResponse> getGames(int page, int size) {
         return useCaseQuery.getGames(page, size);
     }
-
 }
