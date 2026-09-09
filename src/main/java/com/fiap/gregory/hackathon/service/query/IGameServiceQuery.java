@@ -1,9 +1,7 @@
 package com.fiap.gregory.hackathon.service.query;
 
-import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
-
-import java.util.List;
+import com.fiap.gregory.hackathon.rest.dto.response.GameDataResponse;
 
 public interface IGameServiceQuery {
-    List<GameResponse> getGames(int page, int size);
+    GameDataResponse getGames(int page, int size);
 }

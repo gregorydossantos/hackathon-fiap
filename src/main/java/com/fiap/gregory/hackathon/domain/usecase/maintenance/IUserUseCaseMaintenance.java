@@ -4,10 +4,12 @@ import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
 import com.fiap.gregory.hackathon.rest.dto.request.UserUpdateRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 
+import java.util.UUID;
+
 public interface IUserUseCaseMaintenance {
     void createUser(UserRequest request);
 
-    UserResponse updateUser(Long id, UserUpdateRequest request);
+    UserResponse updateUser(UUID id, UserUpdateRequest request);
 
-    void deleteUser(Long id);
+    void deleteUser(UUID id);
 }

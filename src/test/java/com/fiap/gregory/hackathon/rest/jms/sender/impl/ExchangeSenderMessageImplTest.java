@@ -1,7 +1,7 @@
 package com.fiap.gregory.hackathon.rest.jms.sender.impl;
 
-import com.fiap.gregory.hackathon.infra.db.model.Games;
-import com.fiap.gregory.hackathon.infra.db.model.Users;
+import com.fiap.gregory.hackathon.infra.db.model.GameEntity;
+import com.fiap.gregory.hackathon.infra.db.model.UserEntity;
 import com.fiap.gregory.hackathon.infra.db.repository.IGameRepository;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
 import com.fiap.gregory.hackathon.rest.dto.request.ExchangeRequest;
@@ -12,7 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.test.context.ActiveProfiles;
@@ -52,8 +51,8 @@ class ExchangeSenderMessageImplTest {
     @Test
     @DisplayName("MESSAGING LAYER ::: Send a message")
     void should_SendMessage_When_Method_sendMessage_isCall() {
-        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(mock(Users.class)));
-        when(gameRepository.findById(anyLong())).thenReturn(Optional.ofNullable(mock(Games.class)));
+        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(mock(UserEntity.class)));
+        when(gameRepository.findById(anyLong())).thenReturn(Optional.ofNullable(mock(GameEntity.class)));
 
         senderMessage.sendMessage(request);
         verify(userRepository).findById(anyLong());
@@ -70,7 +69,7 @@ class ExchangeSenderMessageImplTest {
     @Test
     @DisplayName("MESSAGING LAYER ::: GameNotFoundException")
     void throw_GameNotFoundException_When_sendMessage_notHasGame() {
-        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(mock(Users.class)));
+        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(mock(UserEntity.class)));
         when(gameRepository.findById(anyLong())).thenReturn(Optional.empty());
         assertThrows(GameNotFoundException.class, () -> senderMessage.sendMessage(request));
     }

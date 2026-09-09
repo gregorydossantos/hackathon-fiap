@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.UUID;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public interface IUserControllerMaintenance {
@@ -18,8 +20,8 @@ public interface IUserControllerMaintenance {
     ResponseEntity<Void> createUser(@RequestBody @Valid UserRequest request);
 
     @PatchMapping(path = "/{id}", consumes = APPLICATION_JSON_VALUE)
-    ResponseEntity<UserResponse> updateUser(@PathVariable("id") Long id, @RequestBody @Valid UserUpdateRequest request);
+    ResponseEntity<UserResponse> updateUser(@PathVariable("id") UUID id, @RequestBody @Valid UserUpdateRequest request);
 
-    @DeleteMapping(path = "/{id}", consumes = APPLICATION_JSON_VALUE)
-    ResponseEntity<Void> deleteUser(@PathVariable("id") Long id);
+    @DeleteMapping(path = "/{id}")
+    ResponseEntity<Void> deleteUser(@PathVariable("id") UUID id);
 }

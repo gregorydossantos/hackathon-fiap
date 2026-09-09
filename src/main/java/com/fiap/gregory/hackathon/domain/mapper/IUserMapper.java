@@ -1,6 +1,6 @@
 package com.fiap.gregory.hackathon.domain.mapper;
 
-import com.fiap.gregory.hackathon.infra.db.model.Users;
+import com.fiap.gregory.hackathon.infra.db.model.UserEntity;
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
 import com.fiap.gregory.hackathon.rest.dto.request.UserUpdateRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
@@ -18,15 +18,16 @@ import static com.fiap.gregory.hackathon.infra.db.enums.ExchangeType.getDescript
 @Mapper(componentModel = "spring")
 public interface IUserMapper {
     @Mapping(source = "exchangeCode", target = "exchange", qualifiedByName = "getDescription")
-    Users toEntity(UserRequest request);
+    UserEntity toEntity(UserRequest request);
 
-    UserResponse toResponse(Users user);
+    UserResponse toResponse(UserEntity user);
 
-    List<UserResponse> toListResponse(List<Users> users);
+    List<UserResponse> toListResponse(List<UserEntity> users);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(source = "exchangeCode", target = "exchange", qualifiedByName = "getDescription")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Users toUpdate(@MappingTarget Users user, UserUpdateRequest request);
+    UserEntity toUpdate(@MappingTarget UserEntity user, UserUpdateRequest request);
 
     @Named("getDescription")
     static String getDescription(int code) {

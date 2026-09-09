@@ -1,9 +1,10 @@
 package com.fiap.gregory.hackathon.domain.usecase.maintenance.impl;
 
 import com.fiap.gregory.hackathon.domain.mapper.IUserMapper;
-import com.fiap.gregory.hackathon.infra.db.model.Users;
+import com.fiap.gregory.hackathon.infra.db.model.UserEntity;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
+import com.fiap.gregory.hackathon.rest.dto.request.UserUpdateRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserDataIntegrityException;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserNotFoundException;
@@ -42,17 +43,23 @@ class UserMaintenanceUseCaseImplTest {
     @InjectMocks
     UserUseCaseMaintenanceImpl userMaintenanceUseCase;
 
-    UserRequest requestMock;
+    UserRequest userRequestMock;
+    UserUpdateRequest userUpdateRequestMock;
     UserResponse responseMock;
-    Users userMock;
+    UserEntity userMock;
 
     @BeforeEach
     void setUp() {
-        requestMock = UserRequest.builder()
+        userRequestMock = UserRequest.builder()
                 .name("Test")
                 .email("test@test.com")
                 .password("11111111")
-                .exchange("Mail")
+                .exchangeCode(2)
+                .build();
+
+        userUpdateRequestMock = UserUpdateRequest.builder()
+                .name("Update Test")
+                .email("new_email@test.com")
                 .build();
 
         responseMock = UserResponse.builder()
@@ -63,23 +70,23 @@ class UserMaintenanceUseCaseImplTest {
                 .exchange("Mail")
                 .build();
 
-        userMock = Users.builder()
+        userMock = UserEntity.builder()
                 .id(1L)
                 .name("Test")
                 .email("test@test.com")
                 .password("11111111")
-                .exchange("Mail")
+                .exchange("Email")
                 .build();
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: Create a user")
     void shouldCreateAUser_When_CallCreateUser() {
-        when(userRepository.findByEmail(requestMock.getEmail())).thenReturn(Optional.empty());
-        when(mapper.toEntity(requestMock)).thenReturn(userMock);
+        when(userRepository.findByEmail(userRequestMock.getEmail())).thenReturn(Optional.empty());
+        when(mapper.toEntity(userRequestMock)).thenReturn(userMock);
 
-        userMaintenanceUseCase.createUser(requestMock);
-        verify(userRepository).save(any(Users.class));
+        userMaintenanceUseCase.createUser(userRequestMock);
+        verify(userRepository).save(any(UserEntity.class));
     }
 
     @Test
@@ -89,7 +96,7 @@ class UserMaintenanceUseCaseImplTest {
         when(mapper.toUpdate(any(), any())).thenReturn(userMock);
         when(mapper.toResponse(any())).thenReturn(responseMock);
 
-        var response = userMaintenanceUseCase.updateUser(1L, requestMock);
+        var response = userMaintenanceUseCase.updateUser(1L, userUpdateRequestMock);
         assertNotNull(response);
     }
 
@@ -99,21 +106,21 @@ class UserMaintenanceUseCaseImplTest {
         when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(userMock));
 
         userMaintenanceUseCase.deleteUser(1L);
-        verify(userRepository).delete(any(Users.class));
+        verify(userRepository).delete(any(UserEntity.class));
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: UserDataIntegrityException")
     void throwUserDataIntegrityException_When_CreateAUser() {
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.ofNullable(userMock));
-        assertThrows(UserDataIntegrityException.class, () -> userMaintenanceUseCase.createUser(requestMock));
+        assertThrows(UserDataIntegrityException.class, () -> userMaintenanceUseCase.createUser(userRequestMock));
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: UserNotFoundException [UPDATE]")
     void throwUserNotFoundException_When_UpdateAUser() {
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(UserNotFoundException.class, () -> userMaintenanceUseCase.updateUser(1L, requestMock));
+        assertThrows(UserNotFoundException.class, () -> userMaintenanceUseCase.updateUser(1L, userUpdateRequestMock));
     }
 
     @Test

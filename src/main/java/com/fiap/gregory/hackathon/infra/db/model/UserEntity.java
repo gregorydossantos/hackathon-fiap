@@ -14,6 +14,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Builder
@@ -22,13 +24,16 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode
 @Table(name = "users_tb")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Users {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "name", length = 10, nullable = false)
+    @Column(name = "user_id", unique = true, nullable = false)
+    UUID userId;
+
+    @Column(name = "name", nullable = false)
     String name;
 
     @Column(name = "email", unique = true, nullable = false)
@@ -37,6 +42,6 @@ public class Users {
     @Column(name = "password", nullable = false)
     String password;
 
-    @Column(name = "exchange", length = 10, nullable = false)
+    @Column(name = "exchange", nullable = false)
     String exchange;
 }

@@ -1,9 +1,7 @@
 package com.fiap.gregory.hackathon.domain.usecase.query;
 
-import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
-
-import java.util.List;
+import com.fiap.gregory.hackathon.rest.dto.response.GameDataResponse;
 
 public interface IGameUseCaseQuery {
-    List<GameResponse> getGames(int page, int size);
+    GameDataResponse getGames(int page, int size);
 }

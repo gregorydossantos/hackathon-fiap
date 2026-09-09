@@ -10,13 +10,15 @@ import static com.fiap.gregory.hackathon.domain.message.CommonsMessage.FIELD_MAN
 
 @Data
 @Builder
-@NotNull(message = FIELD_MANDATORY)
-@NotEmpty(message = FIELD_MANDATORY)
 public class ExchangeRequest {
 
     @JsonProperty("user_id")
-    private Long user_id;
+    @NotNull(message = FIELD_MANDATORY)
+    @NotEmpty(message = FIELD_MANDATORY)
+    private String userId;
 
     @JsonProperty("game_id")
-    private Long game_id;
+    @NotNull(message = FIELD_MANDATORY)
+    @NotEmpty(message = FIELD_MANDATORY)
+    private String gameId;
 }

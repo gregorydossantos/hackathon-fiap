@@ -1,7 +1,7 @@
 package com.fiap.gregory.hackathon.domain.usecase.maintenance.impl;
 
 import com.fiap.gregory.hackathon.domain.mapper.IGameMapper;
-import com.fiap.gregory.hackathon.infra.db.model.Games;
+import com.fiap.gregory.hackathon.infra.db.model.GameEntity;
 import com.fiap.gregory.hackathon.infra.db.repository.IGameRepository;
 import com.fiap.gregory.hackathon.rest.dto.request.GameRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
@@ -38,14 +38,14 @@ class GameUseCaseMaintenanceImplTest {
 
     GameRequest requestMock;
     GameResponse responseMock;
-    Games gameMock;
+    GameEntity gameMock;
 
     @BeforeEach
     void setUp() {
         requestMock = GameRequest.builder()
                 .name("Fifa 25")
                 .brand("PS5")
-                .user_id(1L)
+                .userId(1L)
                 .build();
 
         responseMock = GameResponse.builder()
@@ -55,7 +55,7 @@ class GameUseCaseMaintenanceImplTest {
                 .user_id(1L)
                 .build();
 
-        gameMock = Games.builder()
+        gameMock = GameEntity.builder()
                 .id(1L)
                 .name("Fifa 25")
                 .brand("PS5")

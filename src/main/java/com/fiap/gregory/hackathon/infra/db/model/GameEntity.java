@@ -14,6 +14,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Builder
@@ -22,11 +24,14 @@ import lombok.experimental.FieldDefaults;
 @EqualsAndHashCode
 @Table(name = "games_tb")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Games {
+public class GameEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+    @Column(name = "game_id", unique = true, nullable = false)
+    UUID gameId;
 
     @Column(name = "name", unique = true)
     String name;
@@ -35,5 +40,5 @@ public class Games {
     String brand;
 
     @Column(name = "user_id")
-    Long user_id;
+    UUID userId;
 }

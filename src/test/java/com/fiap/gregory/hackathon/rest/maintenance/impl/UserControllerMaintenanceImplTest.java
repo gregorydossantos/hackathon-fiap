@@ -1,6 +1,7 @@
 package com.fiap.gregory.hackathon.rest.maintenance.impl;
 
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
+import com.fiap.gregory.hackathon.rest.dto.request.UserUpdateRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.service.maintenance.IUserServiceMaintenance;
 import io.restassured.RestAssured;
@@ -20,7 +21,9 @@ import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
 import static io.restassured.RestAssured.given;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -58,7 +61,7 @@ class UserControllerMaintenanceImplTest {
     @Test
     @DisplayName("REST LAYER ::: Should be return a http status 200 - SUCCESS")
     void should_ReturnsHttp200_When_UpdateUser() {
-        var request = Mockito.mock(UserRequest.class);
+        var request = Mockito.mock(UserUpdateRequest.class);
         var response = Mockito.mock(UserResponse.class);
         when(serviceMaintenance.updateUser(1L, request)).thenReturn(response);
 
@@ -68,7 +71,7 @@ class UserControllerMaintenanceImplTest {
                 .when().post(PATH_USERS_ID)
                 .then().statusCode(HttpStatus.OK.value());
 
-        verify(serviceMaintenance).updateUser(anyLong(), any(UserRequest.class));
+        verify(serviceMaintenance).updateUser(anyLong(), any(UserUpdateRequest.class));
     }
 
     @Test

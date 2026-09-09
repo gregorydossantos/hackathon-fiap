@@ -43,8 +43,9 @@ class GameControllerMaintenanceImplTest {
         var request = GameRequest.builder()
                 .name("Test")
                 .brand("Mega Driver")
-                .user_id(1L)
+                .userId(1L)
                 .build();
+
         doNothing().when(gameServiceMaintenance).createGame(request);
 
         given()
@@ -68,5 +69,4 @@ class GameControllerMaintenanceImplTest {
 
         verify(gameServiceMaintenance).deleteGame(anyLong());
     }
-
 }

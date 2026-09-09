@@ -15,7 +15,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import static com.fiap.gregory.hackathon.domain.message.UserMessage.USER_ALREADY_REGISTER;
+import java.util.UUID;
+
+import static com.fiap.gregory.hackathon.domain.message.UserMessage.EMAIL_ALREADY_REGISTER;
 import static com.fiap.gregory.hackathon.domain.message.UserMessage.USER_NOT_FOUND;
 import static com.fiap.gregory.hackathon.useful.StringUseful.nonNullOrEmpty;
 
@@ -34,7 +36,7 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
         log.info("====[CREATE USER]====");
         log.info("Validate if user already exists by email {}", request.getEmail());
         if (userExists(request.getEmail())) {
-            throw new UserDataIntegrityException(USER_ALREADY_REGISTER);
+            throw new UserDataIntegrityException(EMAIL_ALREADY_REGISTER);
         }
 
         log.info("[CREATE] ==== Initialize encryption password field");
@@ -42,15 +44,17 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
 
         log.info("Convert request in entity");
         var user = mapper.toEntity(request);
+
         log.info("Persist entity at database: {}", user);
+        user.setUserId(UUID.randomUUID());
         userRepository.save(user);
     }
 
     @Override
-    public UserResponse updateUser(Long id, UserUpdateRequest request) {
+    public UserResponse updateUser(UUID id, UserUpdateRequest request) {
         log.info("====[UPDATE USER]====");
         log.info("Get register by ID {} in database", id);
-        var oldUser = userRepository.findById(id);
+        var oldUser = userRepository.findByUserId(id);
 
         log.info("[UPDATE] ==== Validating if exists register on database");
         if (oldUser.isEmpty()) {
@@ -71,10 +75,10 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
         log.info("====[DELETE USER]====");
         log.info("Get user by ID {}", id);
-        var user = userRepository.findById(id);
+        var user = userRepository.findByUserId(id);
 
         log.info("[DELETE] ==== Validating if exists register on database");
         if (user.isEmpty()) {

@@ -1,6 +1,6 @@
 package com.fiap.gregory.hackathon.rest.query.impl;
 
-import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
+import com.fiap.gregory.hackathon.rest.dto.response.GameDataResponse;
 import com.fiap.gregory.hackathon.rest.query.IGameControllerQuery;
 import com.fiap.gregory.hackathon.service.query.IGameServiceQuery;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,8 +13,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_GAMES;
 
@@ -34,7 +32,7 @@ public class GameControllerQueryImpl implements IGameControllerQuery {
             @ApiResponse(responseCode = "500", description = "Internal error")
     })
     @Override
-    public ResponseEntity<List<GameResponse>> getGames(int page, int size) {
+    public ResponseEntity<GameDataResponse> getGames(int page, int size) {
         var response = serviceQuery.getGames(page, size);
         return ResponseEntity.ok().body(response);
     }

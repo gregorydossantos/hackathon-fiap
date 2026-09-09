@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -23,12 +25,12 @@ public class UserServiceMaintenanceImpl implements IUserServiceMaintenance {
     }
 
     @Override
-    public UserResponse updateUser(Long id, UserUpdateRequest request) {
+    public UserResponse updateUser(UUID id, UserUpdateRequest request) {
         return userMaintenanceUseCase.updateUser(id, request);
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
         userMaintenanceUseCase.deleteUser(id);
     }
 }
