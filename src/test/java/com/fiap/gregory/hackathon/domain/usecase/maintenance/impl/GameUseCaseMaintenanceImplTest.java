@@ -1,7 +1,7 @@
 package com.fiap.gregory.hackathon.domain.usecase.maintenance.impl;
 
 import com.fiap.gregory.hackathon.domain.mapper.IGameMapper;
-import com.fiap.gregory.hackathon.infra.db.model.Games;
+import com.fiap.gregory.hackathon.infra.db.model.GameEntity;
 import com.fiap.gregory.hackathon.infra.db.repository.IGameRepository;
 import com.fiap.gregory.hackathon.rest.dto.request.GameRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -38,35 +39,41 @@ class GameUseCaseMaintenanceImplTest {
 
     GameRequest requestMock;
     GameResponse responseMock;
-    Games gameMock;
+    GameEntity gameMock;
+    String gameIdMock;
+    String userIdMock;
 
     @BeforeEach
     void setUp() {
+        gameIdMock = UUID.randomUUID().toString();
+        userIdMock = UUID.randomUUID().toString();
         requestMock = GameRequest.builder()
                 .name("Fifa 25")
                 .brand("PS5")
-                .user_id(1L)
+                .userId(userIdMock.toString())
                 .build();
 
         responseMock = GameResponse.builder()
                 .id(1L)
+                .gameId(gameIdMock)
                 .name("Fifa 25")
                 .brand("PS5")
-                .user_id(1L)
+                .userId(userIdMock)
                 .build();
 
-        gameMock = Games.builder()
+        gameMock = GameEntity.builder()
                 .id(1L)
+                .gameId(gameIdMock)
                 .name("Fifa 25")
                 .brand("PS5")
-                .user_id(1L)
+                .userId(userIdMock)
                 .build();
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: Create a game")
     void should_Create_A_Game_When_Call_CreateGame_Method() {
-        when(repository.findByName(requestMock.getName())).thenReturn(Optional.empty());
+        when(repository.findByNameAndBrand(requestMock.getName(), requestMock.getBrand())).thenReturn(Optional.empty());
         when(mapper.toEntity(requestMock)).thenReturn(gameMock);
 
         gameUseCaseMaintenance.createGame(requestMock);
@@ -76,16 +83,16 @@ class GameUseCaseMaintenanceImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: Delete a game")
     void should_Delete_A_Game_When_Call_DeleteGame_Method() {
-        when(repository.findById(anyLong())).thenReturn(Optional.of(gameMock));
+        when(repository.findByGameId(gameIdMock)).thenReturn(Optional.of(gameMock));
 
-        gameUseCaseMaintenance.deleteGame(1L);
+        gameUseCaseMaintenance.deleteGame(UUID.fromString(gameIdMock));
         verify(repository).delete(gameMock);
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: GameDataIntegrityException [CREATE]")
     void throws_GameDataIntegrityException_When_Create_A_Game() {
-        when(repository.findByName(anyString())).thenReturn(Optional.ofNullable(gameMock));
+        when(repository.findByNameAndBrand(anyString(), anyString())).thenReturn(Optional.ofNullable(gameMock));
         assertThrows(GameDataIntegrityException.class, () -> gameUseCaseMaintenance.createGame(requestMock));
     }
 
@@ -93,7 +100,6 @@ class GameUseCaseMaintenanceImplTest {
     @DisplayName("USE CASE LAYER ::: GameNotFoundException [DELETE]")
     void throws_GameNotFoundException_When_Delete_A_Game() {
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
-        assertThrows(GameNotFoundException.class, () -> gameUseCaseMaintenance.deleteGame(1L));
+        assertThrows(GameNotFoundException.class, () -> gameUseCaseMaintenance.deleteGame(UUID.fromString(gameIdMock)));
     }
-
 }

@@ -1,11 +1,7 @@
 package com.fiap.gregory.hackathon.service.query;
 
-import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
-
-import java.util.List;
+import com.fiap.gregory.hackathon.rest.dto.response.UserDataResponse;
 
 public interface IUserServiceQuery {
-
-    List<UserResponse> getUsers(int page, int size);
-
+    UserDataResponse getUsers(int page, int size);
 }

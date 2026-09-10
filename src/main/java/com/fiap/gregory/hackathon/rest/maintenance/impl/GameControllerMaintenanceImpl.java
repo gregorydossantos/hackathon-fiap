@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_GAMES;
 
 @RestController
@@ -47,7 +49,7 @@ public class GameControllerMaintenanceImpl implements IGameControllerMaintenance
             @ApiResponse(responseCode = "500", description = "Internal error")
     })
     @Override
-    public ResponseEntity<Void> deleteGame(Long id) {
+    public ResponseEntity<Void> deleteGame(UUID id) {
         gameServiceMaintenance.deleteGame(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

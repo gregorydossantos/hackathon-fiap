@@ -14,30 +14,31 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.UUID;
+
 @Data
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "users_tb")
+@Table(name = "games_tb")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Users {
+public class GameEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "name", length = 10, nullable = false)
+    @Column(name = "game_id", unique = true, nullable = false)
+    String gameId;
+
+    @Column(name = "name")
     String name;
 
-    @Column(name = "email", unique = true, nullable = false)
-    String email;
+    @Column(name = "brand")
+    String brand;
 
-    @Column(name = "password", nullable = false)
-    String password;
-
-    @Column(name = "exchange", length = 10, nullable = false)
-    String exchange;
-
+    @Column(name = "user_id")
+    String userId;
 }

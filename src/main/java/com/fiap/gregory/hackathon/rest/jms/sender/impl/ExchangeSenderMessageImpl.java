@@ -1,7 +1,7 @@
 package com.fiap.gregory.hackathon.rest.jms.sender.impl;
 
-import com.fiap.gregory.hackathon.infra.db.model.Games;
-import com.fiap.gregory.hackathon.infra.db.model.Users;
+import com.fiap.gregory.hackathon.infra.db.model.GameEntity;
+import com.fiap.gregory.hackathon.infra.db.model.UserEntity;
 import com.fiap.gregory.hackathon.infra.db.repository.IGameRepository;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
 import com.fiap.gregory.hackathon.rest.dto.request.ExchangeRequest;
@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 import static com.fiap.gregory.hackathon.domain.message.GameMessage.GAME_NOT_FOUND;
 import static com.fiap.gregory.hackathon.domain.message.UserMessage.USER_NOT_FOUND;
@@ -29,15 +31,15 @@ public class ExchangeSenderMessageImpl implements IExchangeSenderMessage {
 
     @Override
     public void sendMessage(ExchangeRequest request) {
-        var user = getUser(request.getUser_id());
-        var game = getGame(request.getGame_id());
+        var user = getUser(request.getUserId());
+        var game = getGame(request.getGameId());
 
         var message = buildMessage(user, game);
         template.convertAndSend(PATH_JMS_SENDER, message);
     }
 
-    private Users getUser(Long id) {
-        var user = userRepository.findById(id);
+    private UserEntity getUser(String id) {
+        var user = userRepository.findByUserId(id);
         if (user.isEmpty()) {
             throw new UserNotFoundException(USER_NOT_FOUND);
         }
@@ -45,8 +47,8 @@ public class ExchangeSenderMessageImpl implements IExchangeSenderMessage {
         return user.get();
     }
 
-    private Games getGame(Long id) {
-        var game = gameRepository.findById(id);
+    private GameEntity getGame(String id) {
+        var game = gameRepository.findByGameId(id);
         if (game.isEmpty()) {
             throw new GameNotFoundException(GAME_NOT_FOUND);
         }
@@ -54,10 +56,9 @@ public class ExchangeSenderMessageImpl implements IExchangeSenderMessage {
         return game.get();
     }
 
-    private String buildMessage(Users user, Games game) {
+    private String buildMessage(UserEntity user, GameEntity game) {
         return "The " + user.getName() +
                 "wants to trade the " + game.getName() +
                 "with you!";
     }
-
 }

@@ -1,5 +1,6 @@
 package com.fiap.gregory.hackathon.rest.query.impl;
 
+import com.fiap.gregory.hackathon.rest.dto.response.UserDataResponse;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.rest.query.IUserControllerQuery;
 import com.fiap.gregory.hackathon.service.query.IUserServiceQuery;
@@ -34,9 +35,8 @@ public class UserControllerQueryImpl implements IUserControllerQuery {
             @ApiResponse(responseCode = "500", description = "Internal error")
     })
     @Override
-    public ResponseEntity<List<UserResponse>> getUsers(int page, int size) {
+    public ResponseEntity<UserDataResponse> getUsers(int page, int size) {
         var response = userService.getUsers(page, size);
         return ResponseEntity.ok().body(response);
     }
-
 }

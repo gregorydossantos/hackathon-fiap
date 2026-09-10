@@ -3,7 +3,7 @@ package com.fiap.gregory.hackathon.domain.usecase.query.impl;
 import com.fiap.gregory.hackathon.domain.mapper.IGameMapper;
 import com.fiap.gregory.hackathon.domain.usecase.query.IGameUseCaseQuery;
 import com.fiap.gregory.hackathon.infra.db.repository.IGameRepository;
-import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
+import com.fiap.gregory.hackathon.rest.dto.response.GameDataResponse;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.GameNotFoundException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,8 +12,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 import static com.fiap.gregory.hackathon.domain.message.GameMessage.GAME_NOT_FOUND;
 
@@ -28,7 +26,7 @@ public class GameUseCaseQueryImpl implements IGameUseCaseQuery {
 
     @Override
     //@Cacheable("games")
-    public List<GameResponse> getGames(int page, int size) {
+    public GameDataResponse getGames(int page, int size) {
         log.info("Get all games from database");
         var games = gameRepository.findAll(setPageable(page, size));
 
@@ -38,11 +36,12 @@ public class GameUseCaseQueryImpl implements IGameUseCaseQuery {
         }
 
         log.info("Convert entity to response and send the answer for the API");
-        return gameMapper.toListResponse(games.getContent());
+        return GameDataResponse.builder()
+                .games(gameMapper.toListResponse(games.getContent()))
+                .build();
     }
 
     private Pageable setPageable(int page, int size) {
         return PageRequest.of(page, size);
     }
-
 }

@@ -7,13 +7,14 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.UUID;
 
 import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_EXCHANGES;
 import static io.restassured.RestAssured.given;
@@ -40,7 +41,11 @@ class ExchangeControllerMaintenanceImplTest {
     @Test
     @DisplayName("REST LAYER ::: Should be return a http status 201 - CREATED")
     void should_ReturnsHttp201_When_SendMessageOk() {
-        var request = Mockito.mock(ExchangeRequest.class);
+        var request = ExchangeRequest.builder()
+                .userId(UUID.randomUUID().toString())
+                .gameId(UUID.randomUUID().toString())
+                .build();
+
         doNothing().when(senderMessage).sendMessage(request);
 
         given()
@@ -51,5 +56,4 @@ class ExchangeControllerMaintenanceImplTest {
 
         verify(senderMessage).sendMessage(any(ExchangeRequest.class));
     }
-
 }

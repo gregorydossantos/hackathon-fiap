@@ -1,10 +1,11 @@
-name: CI/CD
+name: "[PROD] Deploy APP"
 
 on:
-  push:
-    branches: [ "feature", "hotfix", "change" ]
   pull_request:
-    branches: [ "develop" ]
+    types:
+      - closed
+    branches:
+      [ "release/**" ]
 
 jobs:
   build:

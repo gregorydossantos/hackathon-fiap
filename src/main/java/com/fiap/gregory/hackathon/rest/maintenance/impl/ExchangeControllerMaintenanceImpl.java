@@ -38,5 +38,4 @@ public class ExchangeControllerMaintenanceImpl implements IExchangeControllerMai
         senderMessage.sendMessage(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 }

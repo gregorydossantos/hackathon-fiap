@@ -10,6 +10,10 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.UUID;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
@@ -36,10 +40,11 @@ class GameServiceMaintenanceImplTest {
     @Test
     @DisplayName("SERVICE LAYER ::: Delete a game successfully")
     void should_Returns_Http_200_When_Call_Method_DeleteGame() {
-        doNothing().when(useCaseMaintenance).deleteGame(1L);
+        var id = UUID.randomUUID();
+        doNothing().when(useCaseMaintenance).deleteGame(id);
 
-        gameServiceMaintenance.deleteGame(1L);
-        verify(useCaseMaintenance).deleteGame(1L);
+        gameServiceMaintenance.deleteGame(id);
+        verify(useCaseMaintenance).deleteGame(id);
     }
 
 }
