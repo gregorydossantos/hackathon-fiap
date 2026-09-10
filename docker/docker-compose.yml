@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    container_name: hackathon-database
+    env_file:
+      - ./postgres/variables-postgres-api.env
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres:/var/lib/postgresql
+    networks:
+      - hackathon-network
+
+  sonarqube:
+    image: sonarqube:lts-community
+    container_name: hackathon-sonar
+    ports:
+      - "9000:9000"
+    env_file:
+      - ./sonar/variables-sonarqube.env
+    networks:
+      - hackathon-network
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+
+  sonar_db:
+    image: postgres:latest
+    container_name: hackathon-db-sonar
+    env_file:
+      - ./sonar/variables-sonarqube-db.env
+    ports:
+      - "5434:5432"
+    networks:
+      - hackathon-network
+    volumes:
+      - sonarqube_postgres:/var/lib/postgresql
+
+#  redis:
+#    image: redis
+#    container_name: hackathon-cache-db
+#    ports:
+#      - "6379:6379"
+#    volumes:
+#      - cache:/data
+#    networks:
+#      - hackathon-network
+
+networks:
+  hackathon-network:
+    driver: bridge
+
+volumes:
+  cache:
+  postgres:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  sonarqube_postgres:

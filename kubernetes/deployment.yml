@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hackathon
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hackathon
+  template:
+    metadata:
+      labels:
+        app: hackathon
+    spec:
+      containers:
+        - name: hackathon-fiap
+          image: gregorycastezana/hackathon-fiap:latest
+          ports:
+            - containerPort: 8080

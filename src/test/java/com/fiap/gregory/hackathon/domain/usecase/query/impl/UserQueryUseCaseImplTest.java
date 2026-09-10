@@ -1,0 +1,68 @@
+package com.fiap.gregory.hackathon.domain.usecase.query.impl;
+
+import com.fiap.gregory.hackathon.domain.mapper.IUserMapper;
+import com.fiap.gregory.hackathon.infra.db.model.UserEntity;
+import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
+import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
+import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserNotFoundException;
+import com.fiap.gregory.hackathon.service.encryption.IEncryptionService;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.ActiveProfiles;
+
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest
+@ActiveProfiles("test")
+class UserQueryUseCaseImplTest {
+
+    @Mock
+    IUserRepository userRepository;
+
+    @Mock
+    IEncryptionService encryptionService;
+
+
+    @Mock
+    IUserMapper mapper;
+
+    @InjectMocks
+    UserUseCaseQueryImpl useCase;
+
+    @Test
+    @DisplayName("USE CASE LAYER ::: Get a list of users successfully")
+    void should_ReturnsAListOfUsers_When_CallGetUsers() {
+        Page<UserEntity> mockPage = new PageImpl<>(List.of(mock(UserEntity.class)));
+
+        when(userRepository.findAll(any(Pageable.class))).thenReturn(mockPage);
+        when(mapper.toListResponse(anyList())).thenReturn(List.of(Mockito.mock(UserResponse.class)));
+
+        var response = useCase.getUsers(0, 10);
+        assertNotNull(response);
+    }
+
+    @Test
+    @DisplayName("USE CASE LAYER ::: Not found any user")
+    void should_ReturnsUserNotFoundException_When_UsersNotExists() {
+        Page<UserEntity> mockPage = new PageImpl<>(Collections.emptyList());
+
+        when(userRepository.findAll(any(Pageable.class))).thenReturn(mockPage);
+        assertThrows(UserNotFoundException.class, () -> useCase.getUsers(0, 10));
+    }
+
+}
