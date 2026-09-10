@@ -95,7 +95,7 @@ class UserMaintenanceUseCaseImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: Update a user")
     void updateUser() {
-        when(userRepository.findByUserId(idMock)).thenReturn(Optional.ofNullable(userMock));
+        when(userRepository.findByUserId(String.valueOf(idMock))).thenReturn(Optional.ofNullable(userMock));
         when(mapper.toUpdate(any(), any())).thenReturn(userMock);
         when(mapper.toResponse(any())).thenReturn(responseMock);
 
@@ -106,7 +106,7 @@ class UserMaintenanceUseCaseImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: Delete a user")
     void deleteUser() {
-        when(userRepository.findByUserId(idMock)).thenReturn(Optional.ofNullable(userMock));
+        when(userRepository.findByUserId(String.valueOf(idMock))).thenReturn(Optional.ofNullable(userMock));
 
         userMaintenanceUseCase.deleteUser(idMock);
         verify(userRepository).delete(any(UserEntity.class));

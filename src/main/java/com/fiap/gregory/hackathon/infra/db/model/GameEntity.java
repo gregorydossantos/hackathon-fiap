@@ -31,7 +31,7 @@ public class GameEntity {
     Long id;
 
     @Column(name = "game_id", unique = true, nullable = false)
-    UUID gameId;
+    String gameId;
 
     @Column(name = "name", unique = true)
     String name;
@@ -40,5 +40,5 @@ public class GameEntity {
     String brand;
 
     @Column(name = "user_id")
-    UUID userId;
+    String userId;
 }

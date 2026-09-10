@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface IGameRepository extends JpaRepository<GameEntity, Long>, PagingAndSortingRepository<GameEntity, Long> {
-    Optional<GameEntity> findByGameId(UUID value);
+    Optional<GameEntity> findByGameId(String value);
 
     Optional<GameEntity> findByName(String value);
 }

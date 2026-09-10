@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface IUserRepository extends JpaRepository<UserEntity, Long>, PagingAndSortingRepository<UserEntity, Long> {
-    Optional<UserEntity> findByUserId(UUID email);
+    Optional<UserEntity> findByUserId(String email);
 
     Optional<UserEntity> findByEmail(String email);
 }

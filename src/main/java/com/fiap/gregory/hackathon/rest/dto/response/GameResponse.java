@@ -19,8 +19,8 @@ public class GameResponse implements Serializable {
 
     @JsonProperty(access = WRITE_ONLY)
     private Long id;
-    private UUID gameId;
+    private String gameId;
     private String name;
     private String brand;
-    private UUID userId;
+    private String userId;
 }

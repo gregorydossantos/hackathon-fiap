@@ -21,6 +21,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -44,13 +45,13 @@ class ExchangeSenderMessageImplTest {
     ExchangeRequest request;
     UserEntity user;
     GameEntity game;
-    UUID userUuid;
-    UUID gameUuid;
+    String userUuid;
+    String gameUuid;
 
     @BeforeEach
     void setUp() {
-        userUuid = UUID.randomUUID();
-        gameUuid = UUID.randomUUID();
+        userUuid = UUID.randomUUID().toString();
+        gameUuid = UUID.randomUUID().toString();
 
         request = ExchangeRequest.builder()
                 .userId(userUuid.toString())
@@ -78,26 +79,26 @@ class ExchangeSenderMessageImplTest {
     @Test
     @DisplayName("MESSAGING LAYER ::: Send a message")
     void should_SendMessage_When_Method_sendMessage_isCall() {
-        when(userRepository.findByUserId(any(UUID.class))).thenReturn(Optional.ofNullable(user));
-        when(gameRepository.findByGameId(any(UUID.class))).thenReturn(Optional.ofNullable(game));
+        when(userRepository.findByUserId(anyString())).thenReturn(Optional.ofNullable(user));
+        when(gameRepository.findByGameId(anyString())).thenReturn(Optional.ofNullable(game));
 
         senderMessage.sendMessage(request);
-        verify(userRepository).findByUserId(any(UUID.class));
-        verify(gameRepository).findByGameId(any(UUID.class));
+        verify(userRepository).findByUserId(anyString());
+        verify(gameRepository).findByGameId(anyString());
     }
 
     @Test
     @DisplayName("MESSAGING LAYER ::: UserNotFoundException")
     void throw_UserNotFoundException_When_sendMessage_notHasUser() {
-        when(userRepository.findByUserId(UUID.randomUUID())).thenReturn(Optional.empty());
+        when(userRepository.findByUserId(anyString())).thenReturn(Optional.empty());
         assertThrows(UserNotFoundException.class, () -> senderMessage.sendMessage(request));
     }
 
     @Test
     @DisplayName("MESSAGING LAYER ::: GameNotFoundException")
     void throw_GameNotFoundException_When_sendMessage_notHasGame() {
-        when(userRepository.findByUserId(any(UUID.class))).thenReturn(Optional.ofNullable(user));
-        when(gameRepository.findByGameId(any(UUID.class))).thenReturn(Optional.empty());
+        when(userRepository.findByUserId(anyString())).thenReturn(Optional.ofNullable(user));
+        when(gameRepository.findByGameId(anyString())).thenReturn(Optional.empty());
         assertThrows(GameNotFoundException.class, () -> senderMessage.sendMessage(request));
     }
 }

@@ -39,7 +39,7 @@ public class ExchangeSenderMessageImpl implements IExchangeSenderMessage {
     }
 
     private UserEntity getUser(String id) {
-        var user = userRepository.findByUserId(UUID.fromString(id));
+        var user = userRepository.findByUserId(id);
         if (user.isEmpty()) {
             throw new UserNotFoundException(USER_NOT_FOUND);
         }
@@ -48,7 +48,7 @@ public class ExchangeSenderMessageImpl implements IExchangeSenderMessage {
     }
 
     private GameEntity getGame(String id) {
-        var game = gameRepository.findByGameId(UUID.fromString(id));
+        var game = gameRepository.findByGameId(id);
         if (game.isEmpty()) {
             throw new GameNotFoundException(GAME_NOT_FOUND);
         }

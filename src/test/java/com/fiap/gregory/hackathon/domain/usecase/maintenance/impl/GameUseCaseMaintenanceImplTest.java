@@ -40,13 +40,13 @@ class GameUseCaseMaintenanceImplTest {
     GameRequest requestMock;
     GameResponse responseMock;
     GameEntity gameMock;
-    UUID gameIdMock;
-    UUID userIdMock;
+    String gameIdMock;
+    String userIdMock;
 
     @BeforeEach
     void setUp() {
-        gameIdMock = UUID.randomUUID();
-        userIdMock = UUID.randomUUID();
+        gameIdMock = UUID.randomUUID().toString();
+        userIdMock = UUID.randomUUID().toString();
         requestMock = GameRequest.builder()
                 .name("Fifa 25")
                 .brand("PS5")
@@ -85,7 +85,7 @@ class GameUseCaseMaintenanceImplTest {
     void should_Delete_A_Game_When_Call_DeleteGame_Method() {
         when(repository.findByGameId(gameIdMock)).thenReturn(Optional.of(gameMock));
 
-        gameUseCaseMaintenance.deleteGame(gameIdMock);
+        gameUseCaseMaintenance.deleteGame(UUID.fromString(gameIdMock));
         verify(repository).delete(gameMock);
     }
 
@@ -100,6 +100,6 @@ class GameUseCaseMaintenanceImplTest {
     @DisplayName("USE CASE LAYER ::: GameNotFoundException [DELETE]")
     void throws_GameNotFoundException_When_Delete_A_Game() {
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
-        assertThrows(GameNotFoundException.class, () -> gameUseCaseMaintenance.deleteGame(gameIdMock));
+        assertThrows(GameNotFoundException.class, () -> gameUseCaseMaintenance.deleteGame(UUID.fromString(gameIdMock)));
     }
 }

@@ -46,7 +46,6 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
         var user = mapper.toEntity(request);
 
         log.info("Persist entity at database: {}", user);
-        user.setUserId(UUID.randomUUID());
         userRepository.save(user);
     }
 
@@ -54,7 +53,7 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
     public UserResponse updateUser(UUID id, UserUpdateRequest request) {
         log.info("====[UPDATE USER]====");
         log.info("Get register by ID {} in database", id);
-        var oldUser = userRepository.findByUserId(id);
+        var oldUser = userRepository.findByUserId(id.toString());
 
         log.info("[UPDATE] ==== Validating if exists register on database");
         if (oldUser.isEmpty()) {
@@ -78,7 +77,7 @@ public class UserUseCaseMaintenanceImpl implements IUserUseCaseMaintenance {
     public void deleteUser(UUID id) {
         log.info("====[DELETE USER]====");
         log.info("Get user by ID {}", id);
-        var user = userRepository.findByUserId(id);
+        var user = userRepository.findByUserId(id.toString());
 
         log.info("[DELETE] ==== Validating if exists register on database");
         if (user.isEmpty()) {

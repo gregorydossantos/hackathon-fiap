@@ -31,7 +31,7 @@ public class UserEntity {
     Long id;
 
     @Column(name = "user_id", unique = true, nullable = false)
-    UUID userId;
+    String userId;
 
     @Column(name = "name", nullable = false)
     String name;

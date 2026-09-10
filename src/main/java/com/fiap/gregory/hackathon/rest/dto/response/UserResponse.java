@@ -19,7 +19,7 @@ public class UserResponse implements Serializable {
 
     @JsonProperty(access = WRITE_ONLY)
     private Long id;
-    private UUID userId;
+    private String userId;
     private String name;
     private String email;
     @JsonProperty(access = WRITE_ONLY)

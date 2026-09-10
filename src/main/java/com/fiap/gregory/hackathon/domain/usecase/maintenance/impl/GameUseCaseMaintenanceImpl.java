@@ -38,7 +38,6 @@ public class GameUseCaseMaintenanceImpl implements IGameUseCaseMaintenance {
         var game = mapper.toEntity(request);
 
         log.info("Persist entity at database: {}", game);
-        game.setGameId(UUID.randomUUID());
         gameRepository.save(game);
     }
 
@@ -46,7 +45,7 @@ public class GameUseCaseMaintenanceImpl implements IGameUseCaseMaintenance {
     public void deleteGame(UUID id) {
         log.info("====[DELETE GAME]====");
         log.info("Get game by ID {}", id);
-        var user = gameRepository.findByGameId(id);
+        var user = gameRepository.findByGameId(id.toString());
 
         log.info("[DELETE] ==== Validating if exists register on database");
         if (user.isEmpty()) {
