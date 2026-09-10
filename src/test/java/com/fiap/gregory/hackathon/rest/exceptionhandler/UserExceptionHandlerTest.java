@@ -14,13 +14,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.List;
 import java.util.Map;
 
 import static com.fiap.gregory.hackathon.domain.message.CommonsMessage.BAD_REQUEST;
-import static com.fiap.gregory.hackathon.domain.message.UserMessage.*;
+import static com.fiap.gregory.hackathon.domain.message.UserMessage.USER_ALREADY_REGISTER;
+import static com.fiap.gregory.hackathon.domain.message.UserMessage.USER_NOT_FOUND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -39,37 +41,37 @@ class UserExceptionHandlerTest {
     }
 
     @Test
-    @DisplayName("Should be return UserDataIntegrityException")
+    @DisplayName("EXCEPTION HANDLER ::: Should be return UserDataIntegrityException")
     void should_ReturnsUserDataIntegrityException_When_UserAlreadyExists() {
         ResponseEntity<ErrorResponse> response = userExceptionHandler.userDataIntegrityException(
                 new UserDataIntegrityException(USER_ALREADY_REGISTER));
 
         assertNotNull(response);
-        assertEquals(response.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
     @Test
-    @DisplayName("Should be return UserNotFoundException")
+    @DisplayName("EXCEPTION HANDLER ::: Should be return UserNotFoundException")
     void should_ReturnsUserNotFoundException_When_UserNotFound() {
         ResponseEntity<ErrorResponse> response = userExceptionHandler.userNotFoundException(
                 new UserNotFoundException(USER_NOT_FOUND));
 
         assertNotNull(response);
-        assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
-    @DisplayName("Should be return UserNotFoundException")
+    @DisplayName("EXCEPTION HANDLER ::: Should be return UserNotFoundException")
     void should_ReturnsUserBadRequestException_When_UserBadRequest() {
         ResponseEntity<ErrorResponse> response = userExceptionHandler.userBadRequestException(
                 new UserBadRequestException(BAD_REQUEST));
 
         assertNotNull(response);
-        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
-    @DisplayName("Should be return MethodArgumentNotValidException")
+    @DisplayName("EXCEPTION HANDLER ::: Should be return MethodArgumentNotValidException")
     void should_Returns_MethodArgumentNotValidException_When_Has_Error_In_User_Payload() {
         MethodArgumentNotValidException exception = mock(MethodArgumentNotValidException.class);
         BindingResult bindingResult = mock(BindingResult.class);
@@ -90,5 +92,15 @@ class UserExceptionHandlerTest {
         assertEquals("Name is required", response.getBody().get("name"));
         assertEquals("Email is invalid", response.getBody().get("email"));
         assertEquals(2, response.getBody().size());
+    }
+
+    @Test
+    @DisplayName("EXCEPTION HANDLER ::: Should be return HttpRequestMethodNotSupportedException")
+    void should_Returns_HttpRequestMethodNotSupportedException_When_Receive_Bad_Request() {
+        ResponseEntity<ErrorResponse> response = userExceptionHandler.httpRequestMethodNotSupportedException(
+                new HttpRequestMethodNotSupportedException(BAD_REQUEST));
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 }
