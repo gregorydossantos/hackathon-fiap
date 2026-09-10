@@ -14,16 +14,18 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.UUID;
+
 import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_GAMES;
 import static io.restassured.RestAssured.given;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class GameControllerMaintenanceImplTest {
-    private static final String PATH_GAME_ID = PATH_GAMES + "/1";
+    private static final String PATH_GAME_ID = PATH_GAMES + "/" + UUID.randomUUID();
 
     @LocalServerPort
     int port;
@@ -31,10 +33,13 @@ class GameControllerMaintenanceImplTest {
     @MockBean
     IGameServiceMaintenance gameServiceMaintenance;
 
+    UUID idMock;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         RestAssured.port = port;
+        idMock = UUID.randomUUID();
     }
 
     @Test
@@ -43,7 +48,7 @@ class GameControllerMaintenanceImplTest {
         var request = GameRequest.builder()
                 .name("Test")
                 .brand("Mega Driver")
-                .userId(1L)
+                .userId(idMock.toString())
                 .build();
 
         doNothing().when(gameServiceMaintenance).createGame(request);
@@ -60,13 +65,13 @@ class GameControllerMaintenanceImplTest {
     @Test
     @DisplayName("REST LAYER ::: Should be return a http status 200 - OK")
     void should_Returns_Http_200_When_DeleteGame() {
-        doNothing().when(gameServiceMaintenance).deleteGame(1L);
+        doNothing().when(gameServiceMaintenance).deleteGame(idMock);
 
         given()
                 .contentType(ContentType.JSON)
                 .when().delete(PATH_GAME_ID)
                 .then().statusCode(HttpStatus.OK.value());
 
-        verify(gameServiceMaintenance).deleteGame(anyLong());
+        verify(gameServiceMaintenance).deleteGame(any(UUID.class));
     }
 }

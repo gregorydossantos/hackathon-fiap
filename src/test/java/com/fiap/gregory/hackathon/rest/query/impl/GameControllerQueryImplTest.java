@@ -1,9 +1,8 @@
 package com.fiap.gregory.hackathon.rest.query.impl;
 
-import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
+import com.fiap.gregory.hackathon.rest.dto.response.GameDataResponse;
 import com.fiap.gregory.hackathon.service.query.IGameServiceQuery;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,8 +13,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.List;
 
 import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_GAMES;
 import static io.restassured.RestAssured.given;
@@ -31,23 +28,22 @@ class GameControllerQueryImplTest {
     @MockBean
     IGameServiceQuery serviceQuery;
 
-    GameResponse response;
+    GameDataResponse response;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        response = Mockito.mock(GameResponse.class);
+        response = Mockito.mock(GameDataResponse.class);
         RestAssured.port = port;
     }
 
     @Test
     @DisplayName("Should be return a HTTP status 200 - SUCCESS")
     void getGames() {
-        when(serviceQuery.getGames(0, 10)).thenReturn(List.of(response));
+        when(serviceQuery.getGames(0, 10)).thenReturn(response);
 
         given()
                 .when().get(PATH_GAMES)
                 .then().statusCode(HttpStatus.OK.value());
     }
-
 }

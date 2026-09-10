@@ -1,6 +1,7 @@
 package com.fiap.gregory.hackathon.service.query.impl;
 
 import com.fiap.gregory.hackathon.domain.usecase.query.IGameUseCaseQuery;
+import com.fiap.gregory.hackathon.rest.dto.response.GameDataResponse;
 import com.fiap.gregory.hackathon.rest.dto.response.GameResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class GameServiceQueryImplTest {
     @Test
     @DisplayName("SERVICE LAYER ::: Get a list of games")
     void getGames() {
-        when(useCaseQuery.getGames(0,10)).thenReturn(List.of(Mockito.mock(GameResponse.class)));
+        when(useCaseQuery.getGames(0,10)).thenReturn(Mockito.mock(GameDataResponse.class));
 
         var response = serviceQuery.getGames(0,10);
         assertNotNull(response);

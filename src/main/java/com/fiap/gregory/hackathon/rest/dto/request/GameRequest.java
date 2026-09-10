@@ -3,11 +3,8 @@ package com.fiap.gregory.hackathon.rest.dto.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.UUID;
 
 import static com.fiap.gregory.hackathon.domain.message.CommonsMessage.FIELD_MANDATORY;
 
@@ -26,6 +23,7 @@ public class GameRequest {
     private String brand;
 
     @JsonProperty("user_id")
-    @Positive(message = FIELD_MANDATORY)
-    private UUID userId;
+    @NotNull(message = FIELD_MANDATORY)
+    @NotEmpty(message = FIELD_MANDATORY)
+    private String userId;
 }

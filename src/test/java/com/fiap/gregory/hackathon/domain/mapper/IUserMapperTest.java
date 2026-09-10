@@ -46,9 +46,9 @@ class IUserMapperTest {
     @Test
     @DisplayName("Should returns user update when call toUpdate method")
     void should_ReturnsUserUpdate_When_CallToUpdateMethod() {
-        var mockUserRequest = Mockito.mock(UserUpdateRequest.class);
+        var mockUserUpdateRequest = Mockito.mock(UserUpdateRequest.class);
         var mockUser = Mockito.mock(UserEntity.class);
-        var userUpdate = mapper.toUpdate(mockUser, mockUserRequest);
+        var userUpdate = mapper.toUpdate(mockUser, mockUserUpdateRequest);
         assertNotNull(userUpdate);
     }
 }

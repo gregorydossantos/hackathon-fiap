@@ -18,11 +18,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -47,6 +47,7 @@ class UserMaintenanceUseCaseImplTest {
     UserUpdateRequest userUpdateRequestMock;
     UserResponse responseMock;
     UserEntity userMock;
+    UUID idMock;
 
     @BeforeEach
     void setUp() {
@@ -77,6 +78,8 @@ class UserMaintenanceUseCaseImplTest {
                 .password("11111111")
                 .exchange("Email")
                 .build();
+
+        idMock = UUID.randomUUID();
     }
 
     @Test
@@ -92,20 +95,20 @@ class UserMaintenanceUseCaseImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: Update a user")
     void updateUser() {
-        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(userMock));
+        when(userRepository.findByUserId(idMock)).thenReturn(Optional.ofNullable(userMock));
         when(mapper.toUpdate(any(), any())).thenReturn(userMock);
         when(mapper.toResponse(any())).thenReturn(responseMock);
 
-        var response = userMaintenanceUseCase.updateUser(1L, userUpdateRequestMock);
+        var response = userMaintenanceUseCase.updateUser(idMock, userUpdateRequestMock);
         assertNotNull(response);
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: Delete a user")
     void deleteUser() {
-        when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(userMock));
+        when(userRepository.findByUserId(idMock)).thenReturn(Optional.ofNullable(userMock));
 
-        userMaintenanceUseCase.deleteUser(1L);
+        userMaintenanceUseCase.deleteUser(idMock);
         verify(userRepository).delete(any(UserEntity.class));
     }
 
@@ -120,14 +123,13 @@ class UserMaintenanceUseCaseImplTest {
     @DisplayName("USE CASE LAYER ::: UserNotFoundException [UPDATE]")
     void throwUserNotFoundException_When_UpdateAUser() {
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(UserNotFoundException.class, () -> userMaintenanceUseCase.updateUser(1L, userUpdateRequestMock));
+        assertThrows(UserNotFoundException.class, () -> userMaintenanceUseCase.updateUser(idMock, userUpdateRequestMock));
     }
 
     @Test
     @DisplayName("USE CASE LAYER ::: UserNotFoundException [DELETE]")
     void throwUserNotFoundException_When_DeleteAUser() {
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
-        assertThrows(UserNotFoundException.class, () -> userMaintenanceUseCase.deleteUser(1L));
+        assertThrows(UserNotFoundException.class, () -> userMaintenanceUseCase.deleteUser(idMock));
     }
-
 }
