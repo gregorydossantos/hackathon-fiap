@@ -183,6 +183,12 @@
                 <configuration>
                     <excludes>
                         <exclude>**/HackathonApplication.class</exclude>
+                        <exclude>**/domain/message/**</exclude>
+                        <exclude>**/domain/mapper/**</exclude>
+                        <exclude>**/rest/dto/request/**</exclude>
+                        <exclude>**/rest/dto/response/**</exclude>
+                        <exclude>**/rest/path/**</exclude>
+                        <exclude>**/useful/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
