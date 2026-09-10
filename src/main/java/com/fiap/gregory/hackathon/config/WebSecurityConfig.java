@@ -44,5 +44,4 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated())
                 .build();
     }
-
 }

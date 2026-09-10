@@ -2,8 +2,9 @@ package com.fiap.gregory.hackathon.domain.usecase.query.impl;
 
 import com.fiap.gregory.hackathon.domain.mapper.IUserMapper;
 import com.fiap.gregory.hackathon.domain.usecase.query.IUserUseCaseQuery;
-import com.fiap.gregory.hackathon.infra.db.model.Users;
+import com.fiap.gregory.hackathon.infra.db.model.UserEntity;
 import com.fiap.gregory.hackathon.infra.db.repository.IUserRepository;
+import com.fiap.gregory.hackathon.rest.dto.response.UserDataResponse;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.rest.exceptionhandler.exception.UserNotFoundException;
 import com.fiap.gregory.hackathon.service.encryption.IEncryptionService;
@@ -30,7 +31,7 @@ public class UserUseCaseQueryImpl implements IUserUseCaseQuery {
     IEncryptionService encryptionService;
 
     @Override
-    public List<UserResponse> getUsers(int page, int size) {
+    public UserDataResponse getUsers(int page, int size) {
         log.info("Get all user from database");
         var users = userRepository.findAll(setPageable(page, size));
 
@@ -43,11 +44,13 @@ public class UserUseCaseQueryImpl implements IUserUseCaseQuery {
         decryptingAllPasswords(users.getContent());
 
         log.info("Return all Users");
-        return userMapper.toListResponse(users.getContent());
+        return UserDataResponse.builder()
+                .users(userMapper.toListResponse(users.getContent()))
+                .build();
     }
 
-    private void decryptingAllPasswords(List<Users> users) {
-        for (Users user : users) {
+    private void decryptingAllPasswords(List<UserEntity> users) {
+        for (UserEntity user : users) {
             log.debug("Encrypt password: {}", user.getPassword());
             user.setPassword(encryptionService.decrypt(user.getPassword()));
             log.debug("Decrypt password: {}", user.getPassword());
@@ -57,5 +60,4 @@ public class UserUseCaseQueryImpl implements IUserUseCaseQuery {
     private Pageable setPageable(int page, int size) {
         return PageRequest.of(page, size);
     }
-
 }

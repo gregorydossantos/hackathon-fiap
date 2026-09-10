@@ -11,11 +11,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import java.util.List;
+import java.util.Map;
 
 import static com.fiap.gregory.hackathon.domain.message.GameMessage.GAME_ALREADY_REGISTER;
 import static com.fiap.gregory.hackathon.domain.message.GameMessage.GAME_NOT_FOUND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -49,4 +57,27 @@ class GameExceptionHandlerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
+    @Test
+    @DisplayName("Should be return MethodArgumentNotValidException")
+    void should_Returns_MethodArgumentNotValidException_When_Has_Error_In_Game_Payload() {
+        MethodArgumentNotValidException exception = mock(MethodArgumentNotValidException.class);
+        BindingResult bindingResult = mock(BindingResult.class);
+
+        FieldError nameError =
+                new FieldError("gameRequest", "name", "Name is required");
+
+        FieldError emailError =
+                new FieldError("gameRequest", "brand", "Brand is required");
+
+        when(exception.getBindingResult()).thenReturn(bindingResult);
+        when(bindingResult.getAllErrors()).thenReturn(List.of(nameError, emailError));
+
+        ResponseEntity<Map<String, String>> response = gameExceptionHandler.gamePayloadException(exception);
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals("Name is required", response.getBody().get("name"));
+        assertEquals("Brand is required", response.getBody().get("brand"));
+        assertEquals(2, response.getBody().size());
+    }
 }

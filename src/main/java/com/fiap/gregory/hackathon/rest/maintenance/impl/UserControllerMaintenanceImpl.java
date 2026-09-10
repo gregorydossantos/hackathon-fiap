@@ -1,6 +1,7 @@
 package com.fiap.gregory.hackathon.rest.maintenance.impl;
 
 import com.fiap.gregory.hackathon.rest.dto.request.UserRequest;
+import com.fiap.gregory.hackathon.rest.dto.request.UserUpdateRequest;
 import com.fiap.gregory.hackathon.rest.dto.response.UserResponse;
 import com.fiap.gregory.hackathon.rest.maintenance.IUserControllerMaintenance;
 import com.fiap.gregory.hackathon.service.maintenance.IUserServiceMaintenance;
@@ -15,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 import static com.fiap.gregory.hackathon.rest.path.Routes.PATH_USERS;
 
@@ -48,7 +51,7 @@ public class UserControllerMaintenanceImpl implements IUserControllerMaintenance
             @ApiResponse(responseCode = "500", description = "Internal error")
     })
     @Override
-    public ResponseEntity<UserResponse> updateUser(Long id, UserRequest request) {
+    public ResponseEntity<UserResponse> updateUser(UUID id, UserUpdateRequest request) {
         var response = userServiceMaintenance.updateUser(id, request);
         return ResponseEntity.ok().body(response);
     }
@@ -61,7 +64,7 @@ public class UserControllerMaintenanceImpl implements IUserControllerMaintenance
             @ApiResponse(responseCode = "500", description = "Internal error")
     })
     @Override
-    public ResponseEntity<Void> deleteUser(Long id) {
+    public ResponseEntity<Void> deleteUser(UUID id) {
         userServiceMaintenance.deleteUser(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
