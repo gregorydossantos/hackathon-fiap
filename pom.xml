@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.fiap.gregory</groupId>
     <artifactId>hackathon</artifactId>
-    <version>1.0.0</version>
+    <version>v1.0.0</version>
     <name>hackathon</name>
     <description>Hackathon FIAP Posgraduate</description>
 
