@@ -33,7 +33,7 @@ public class GameEntity {
     @Column(name = "game_id", unique = true, nullable = false)
     String gameId;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     String name;
 
     @Column(name = "brand")

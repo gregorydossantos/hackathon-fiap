@@ -6,11 +6,10 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public interface IGameRepository extends JpaRepository<GameEntity, Long>, PagingAndSortingRepository<GameEntity, Long> {
     Optional<GameEntity> findByGameId(String value);
 
-    Optional<GameEntity> findByName(String value);
+    Optional<GameEntity> findByNameAndBrand(String name, String brand);
 }

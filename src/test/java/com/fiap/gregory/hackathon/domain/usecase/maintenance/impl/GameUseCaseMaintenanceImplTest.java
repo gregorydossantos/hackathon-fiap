@@ -73,7 +73,7 @@ class GameUseCaseMaintenanceImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: Create a game")
     void should_Create_A_Game_When_Call_CreateGame_Method() {
-        when(repository.findByName(requestMock.getName())).thenReturn(Optional.empty());
+        when(repository.findByNameAndBrand(requestMock.getName(), requestMock.getBrand())).thenReturn(Optional.empty());
         when(mapper.toEntity(requestMock)).thenReturn(gameMock);
 
         gameUseCaseMaintenance.createGame(requestMock);
@@ -92,7 +92,7 @@ class GameUseCaseMaintenanceImplTest {
     @Test
     @DisplayName("USE CASE LAYER ::: GameDataIntegrityException [CREATE]")
     void throws_GameDataIntegrityException_When_Create_A_Game() {
-        when(repository.findByName(anyString())).thenReturn(Optional.ofNullable(gameMock));
+        when(repository.findByNameAndBrand(anyString(), anyString())).thenReturn(Optional.ofNullable(gameMock));
         assertThrows(GameDataIntegrityException.class, () -> gameUseCaseMaintenance.createGame(requestMock));
     }
 

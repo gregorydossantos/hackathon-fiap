@@ -30,7 +30,7 @@ public class GameUseCaseMaintenanceImpl implements IGameUseCaseMaintenance {
     public void createGame(GameRequest request) {
         log.info("====[CREATE GAME]====");
         log.info("Validate if game already exists by name {}", request.getName());
-        if (gameExists(request.getName())) {
+        if (gameExists(request.getName(),  request.getBrand())) {
             throw new GameDataIntegrityException(GAME_ALREADY_REGISTER);
         }
 
@@ -56,7 +56,7 @@ public class GameUseCaseMaintenanceImpl implements IGameUseCaseMaintenance {
         gameRepository.delete(user.get());
     }
 
-    private boolean gameExists(String name) {
-        return gameRepository.findByName(name).isPresent();
+    private boolean gameExists(String name, String brand) {
+        return gameRepository.findByNameAndBrand(name, brand).isPresent();
     }
 }
